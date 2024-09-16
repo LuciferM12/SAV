@@ -10,6 +10,9 @@ html {
   body {
     margin: 0;
     min-height: 100vh;
+    font-family: "Poppins", system-ui;
+    font-weight: 100;
+    font-style: normal;
   }
   main {
     display: block;
@@ -25,6 +28,8 @@ html {
   }
   a {
     background-color: transparent;
+    text-decoration: none;
+    color: inherit;
   }
   abbr[title] {
     border-bottom: none; 
