@@ -1,9 +1,9 @@
-import HeaderEstilizado from "../../components"
+import Banner from "../../components/Banner"
 
 const Inicio = () => {
     return (
         <>
-            
+            <Banner/>
         </>
     )
 }

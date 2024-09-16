@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from "styled-components"
-import Logo from '../../assets/imgs/AM_Logo.png'
+import Logo from '/AM_Logo.png'
 import { Link } from 'react-router-dom';
 
 const HeaderEstilizado = styled.header`
