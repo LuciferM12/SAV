@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import Buttton from "../Button"
 
 const BannerEstilizado = styled.div`
     width: 100%;
@@ -52,7 +53,8 @@ function Banner() {
                 <div>
                     <h2>Restaurante</h2>
                     <h1>Antojitos Mary</h1>
-                    <p>Uno de los restaurantes más prestigiosos de San Luis Potosí. Con precios accesibles y un de los mejores servicios.</p>
+                    <p>Uno de los restaurantes más prestigiosos de San Luis Potosí. Con precios accesibles y uno de los mejores servicios.</p>
+                    <Buttton texto={"Menu"} ruta={"/menu"}/>
                 </div>
 
             </BannerEstilizado>
