@@ -3,6 +3,7 @@ import styled from "styled-components"
 import Logo from '/AM_Logo.png'
 import { Link } from 'react-router-dom';
 import ButtonP from '../Button';
+import { HomeOutlined } from '@mui/icons-material'
 
 const HeaderEstilizado = styled.header`
     display: flex;

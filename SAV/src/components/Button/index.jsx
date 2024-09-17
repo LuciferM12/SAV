@@ -16,7 +16,7 @@ const theme = createTheme({
     }
 })
 
-function ButtonP({ texto, color = "primary", ruta, variant = "contained", size, icon }) {
+function ButtonP({ texto, color = "primary", ruta, variant = "contained", size, startIcon, endIcon }) {
     return (
         <ThemeProvider theme={theme}>
             <Button
@@ -24,6 +24,8 @@ function ButtonP({ texto, color = "primary", ruta, variant = "contained", size, 
                 size={size}
                 color={color}
                 component={Link}
+                startIcon={startIcon ? startIcon : null}
+                endIcon={endIcon ? endIcon : null}
                 to={ruta}
             >
                 {texto}
