@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from "styled-components"
 import Logo from '/AM_Logo.png'
 import { Link } from 'react-router-dom';
+import ButtonP from '../Button';
 
 const HeaderEstilizado = styled.header`
     display: flex;
@@ -69,8 +70,8 @@ const Header = () => {
                    <Link to={"/"}><li><img src={Logo} alt="logo" /></li></Link>
                 </OpcionesEstilizadas>
                 <OpcionesEstilizadas>
-                    <li>Reseñas</li>
                     <li>Contáctanos</li>
+                    <ButtonP texto={"Inicia Sesión"} ruta={"/signin"} size={"small"} color={"secondary"} />
                 </OpcionesEstilizadas>
             </HeaderEstilizado>
     )

@@ -1,29 +1,36 @@
 import React from 'react'
-import styled from 'styled-components'
 import { Link } from 'react-router-dom';
+import Button from '@mui/material/Button';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { brown, deepOrange } from '@mui/material/colors';
 
-const BotonEstilizado = styled.input`
-   width: 150px;
-   background-color: #1DF2F2;
-   color: #0D0D0D;
-   height: 50px;
-   border-radius: 10px;
-   border-style: none;
-   text-align: center;
-   font-weight: 700;
-   transition: .3s ease-in;
-   &:hover{
-    background-color: #192744;
-    color: white;
-   }
-`
 
-function Buttton({ texto, icono, ruta, tipo = "button" }) {
+const theme = createTheme({
+    palette: {
+        primary: {
+            main: deepOrange[500],
+        },
+        secondary: {
+            main: brown[500],
+        }
+    }
+})
+
+function ButtonP({ texto, color = "primary", ruta, variant = "contained", size, icon }) {
     return (
-        <Link to={ruta}>
-            <BotonEstilizado type={tipo} value={texto} />
-        </Link>
+        <ThemeProvider theme={theme}>
+            <Button
+                variant={variant}
+                size={size}
+                color={color}
+                component={Link}
+                to={ruta}
+            >
+                {texto}
+            </Button>
+        </ThemeProvider>
+
     )
 }
 
-export default Buttton
+export default ButtonP
