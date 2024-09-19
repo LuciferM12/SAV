@@ -3,7 +3,6 @@ import styled from "styled-components"
 import Logo from '/AM_Logo.png'
 import { Link } from 'react-router-dom';
 import ButtonP from '../Button';
-import { HomeOutlined } from '@mui/icons-material'
 
 const HeaderEstilizado = styled.header`
     display: flex;
@@ -61,20 +60,20 @@ const Header = () => {
     }, []);
 
     return (
-            <HeaderEstilizado semovio={semovio}>
-                <OpcionesEstilizadas>
-                    <li>Inicio</li>
-                    <li>Nosotros</li>
-                    <li>Productos</li>
-                </OpcionesEstilizadas>
-                <OpcionesEstilizadas>
-                   <Link to={"/"}><li><img src={Logo} alt="logo" /></li></Link>
-                </OpcionesEstilizadas>
-                <OpcionesEstilizadas>
-                    <li>Contáctanos</li>
-                    <ButtonP texto={"Inicia Sesión"} ruta={"/signin"} size={"small"} color={"secondary"} />
-                </OpcionesEstilizadas>
-            </HeaderEstilizado>
+        <HeaderEstilizado semovio={semovio}>
+            <OpcionesEstilizadas>
+                <li>Inicio</li>
+                <li>Nosotros</li>
+                <li>Productos</li>
+            </OpcionesEstilizadas>
+            <OpcionesEstilizadas>
+                <Link to={"/"}><li><img src={Logo} alt="logo" /></li></Link>
+            </OpcionesEstilizadas>
+            <OpcionesEstilizadas>
+                <li>Contáctanos</li>
+                <ButtonP texto={"Inicia Sesión"} ruta={"/signin"} size={"small"} color={"secondary"} />
+            </OpcionesEstilizadas>
+        </HeaderEstilizado>
     )
 }
 
