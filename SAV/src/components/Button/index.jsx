@@ -1,24 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { brown, deepOrange } from '@mui/material/colors';
+import { ThemeProvider } from '@mui/material/styles';
+import Theme from '../../utils/Theme';
 
-
-const theme = createTheme({
-    palette: {
-        primary: {
-            main: deepOrange[500],
-        },
-        secondary: {
-            main: brown[500],
-        }
-    }
-})
 
 function ButtonP({ texto, color = "primary", ruta, variant = "contained", size, startIcon, endIcon }) {
     return (
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={Theme}>
             <Button
                 variant={variant}
                 size={size}
