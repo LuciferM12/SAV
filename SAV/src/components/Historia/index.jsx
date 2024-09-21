@@ -14,11 +14,18 @@ const SectionEstilizado = styled.section`
   gap: 50px;
   align-items: center;
   justify-content: center;
-
+  
+  @media (max-width: 480px) {
+    padding: 20px;
+  }
 
   img {
     width: 70%;
     border-radius: 10px;
+
+    @media (max-width: 480px) {
+      width: 100%;
+    }
   }
 
   div {
@@ -27,7 +34,7 @@ const SectionEstilizado = styled.section`
     display: flex;
     flex-direction: column;
     align-items: center;
-
+    
     p {
       line-height: 1.5;
       font-weight: 300;
@@ -37,12 +44,17 @@ const SectionEstilizado = styled.section`
         width: 100%;
     }
 
+    
   }
 `
 const ContenedorSecundario = styled.article`
   width: 80%;
   display: flex;  
   flex-wrap: wrap;
+
+  @media (max-width: 480px) {
+    width: 100%;
+  }
 `
 
 

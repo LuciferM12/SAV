@@ -5,12 +5,13 @@ import Box from '@mui/material/Box';
 import styled from 'styled-components'
 import { ThemeProvider } from '@mui/material';
 import Theme from '../../utils/Theme';
+import Card from '../Card';
 
 const productos = [
-    { foto: 'foto1.jpg', nombre: 'Platillo 1', costo: 50, descripcion: 'Descripción 1', categoria: 'Platillos' },
-    { foto: 'foto2.jpg', nombre: 'Platillo 2', costo: 70, descripcion: 'Descripción 2', categoria: 'Platillos' },
-    { foto: 'foto3.jpg', nombre: 'Bebida 1', costo: 30, descripcion: 'Descripción 3', categoria: 'Bebidas' },
-    { foto: 'foto4.jpg', nombre: 'Bebida 2', costo: 40, descripcion: 'Descripción 4', categoria: 'Bebidas' },
+    { foto: '/Totita.jpg', nombre: 'Platillo 1', costo: 50.50, descripcion: 'Descripción 1', categoria: 'Platillos' },
+    { foto: '/limonada.jpg', nombre: 'Bebida 3', costo: 70.00, descripcion: 'Descripción 2', categoria: 'Bebidas' },
+    { foto: '/monster.jpg', nombre: 'Bebida 1', costo: 30.00, descripcion: 'Descripción 3', categoria: 'Bebidas' },
+    { foto: '/jamaica.jpg', nombre: 'Bebida 2', costo: 40.00, descripcion: 'Descripción 4', categoria: 'Bebidas' },
     // Más productos...
 ];
 
@@ -26,6 +27,20 @@ const SectionEstilizado = styled.section`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  @media (max-width: 480px) {
+    padding: 20px;
+    }
+`
+
+const ProductosEstilizados = styled.div`
+    width: 100%;
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    box-sizing: border-box;
+    
+
 `
 function Productos() {
     const [value, setValue] = useState(0);
@@ -62,22 +77,16 @@ function Productos() {
                         >
                             <Tab label="Platillos" />
                             <Tab label="Bebidas" />
-                            <Tab label="Bebidas" />
-                            <Tab label="Bebidas" />
-                            <Tab label="Bebidas" />
-                            <Tab label="Bebidas" />
                         </Tabs>
-
-                        <Box>
-                            {filteredProducts.map((product, index) => (
-                                <div key={index}>
-                                    <p>{product.nombre}</p>
-                                </div>
-                            ))}
-                        </Box>
                     </Box>
+
                 </ThemeProvider>
             </div>
+            <ProductosEstilizados>
+                {filteredProducts.map((product, index) => (
+                    <Card key={index} nombre={product.nombre} precio={product.costo} imagen={product.foto} descripcion={product.descripcion} />
+                ))}
+            </ProductosEstilizados>
 
         </SectionEstilizado>
     )
