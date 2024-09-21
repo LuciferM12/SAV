@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import styled from "styled-components"
-import Logo from '/AM_Logo.png'
+import styled from "styled-components";
+import Logo from '/AM_Logo.png';
 import { Link } from 'react-router-dom';
 import ButtonP from '../Button';
+import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
 
 const HeaderEstilizado = styled.header`
     display: flex;
@@ -10,7 +12,7 @@ const HeaderEstilizado = styled.header`
     justify-content: space-between;
     width: 100%;
     height: 80px;
-    background-color: ${({ semovio }) => (semovio == "true" ? '#110904' : 'transparent')};
+    background-color: ${({ semovio }) => (semovio === "true" ? '#110904' : 'transparent')};
     color: white;
     padding: 0px 30px;
     box-sizing: border-box;
@@ -18,7 +20,13 @@ const HeaderEstilizado = styled.header`
     top: 0px;
     transition: background-color 0.3s ease;
     z-index: 1000;
-`
+
+    @media (max-width: 768px) {
+        padding: 10px 20px;
+        justify-content: space-between;
+        background-color: #110904;
+    }
+`;
 
 const OpcionesEstilizadas = styled.ul`
     display: flex;
@@ -34,19 +42,61 @@ const OpcionesEstilizadas = styled.ul`
     img {
         width: 90px;
     }
-`
+
+    @media (max-width: 768px) {
+        display: ${({ isopen }) => (isopen === 'true' ? 'flex' : 'none')};
+        flex-direction: column;
+        gap: 20px;
+        position: absolute;
+        top: 51px;
+        left: 0;
+        background-color: #110904;
+        width: 100%;
+        padding: 20px 0;
+        box-sizing: border-box;
+        z-index: 999;
+        height: fit-content;
+    }
+`;
+
+const MenuButton = styled.button`
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+
+    @media (max-width: 768px) {
+        display: block;
+    }
+`;
+
+const LogoContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img {
+        width: 90px;
+    }
+`;
 
 const Header = () => {
     const [semovio, setsemovio] = useState("false");
+    const [menuOpen, setMenuOpen] = useState('false');
 
     // Función que escucha el scroll
     const handleScroll = () => {
         const scrollTop = window.scrollY;
-        if (scrollTop > 50) {  // Cambia el valor si deseas que el color se aplique antes o después
+        if (scrollTop > 50) {
             setsemovio("true");
         } else {
             setsemovio("false");
         }
+    };
+
+    // Manejar el estado del menú
+    const toggleMenu = () => {
+        setMenuOpen(menuOpen === 'true' ? 'false' : 'true')
     };
 
     useEffect(() => {
@@ -61,20 +111,28 @@ const Header = () => {
 
     return (
         <HeaderEstilizado semovio={semovio}>
-            <OpcionesEstilizadas>
-                <li>Inicio</li>
-                <li>Nosotros</li>
-                <li>Productos</li>
-            </OpcionesEstilizadas>
-            <OpcionesEstilizadas>
-                <Link to={"/"}><li><img src={Logo} alt="logo" /></li></Link>
-            </OpcionesEstilizadas>
-            <OpcionesEstilizadas>
-                <li>Contáctanos</li>
+            {/* Botón de Menú para pantallas pequeñas */}
+            <MenuButton onClick={toggleMenu}>
+                {menuOpen === 'true' ? <CloseIcon fontSize="large" /> : <MenuIcon fontSize="large" />}
+            </MenuButton>
+
+            {/* Logo */}
+            <LogoContainer>
+                <Link to={"/"}>
+                    <img src={Logo} alt="logo" />
+                </Link>
+            </LogoContainer>
+
+            {/* Opciones del menú */}
+            <OpcionesEstilizadas isopen={menuOpen}>
+                <li><Link to="/">Inicio</Link></li>
+                <li><Link to="/nosotros">Nosotros</Link></li>
+                <li><Link to="/productos">Productos</Link></li>
+                <li><Link to="/contacto">Contáctanos</Link></li>
                 <ButtonP texto={"Inicia Sesión"} ruta={"/signin"} size={"small"} color={"secondary"} />
             </OpcionesEstilizadas>
         </HeaderEstilizado>
-    )
+    );
 }
 
-export default Header
+export default Header;
