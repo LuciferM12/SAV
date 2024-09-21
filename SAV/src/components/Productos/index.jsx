@@ -27,6 +27,7 @@ const SectionEstilizado = styled.section`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  text-align: center;
   @media (max-width: 480px) {
     padding: 20px;
     }

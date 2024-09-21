@@ -12,6 +12,11 @@ const CardEstilizada = styled.div`
     text-align: center;
     color: black;
     box-sizing: border-box;
+    transition: .3s ease-in;
+
+    &:hover{
+        scale: 0.95;
+    }
 
     h3 {
         margin: 10px;
@@ -25,11 +30,11 @@ const CardEstilizada = styled.div`
         text-overflow: ellipsis; 
     }
     
-    @media (max-width: 1200px) {
+    @media (max-width: 1600px) {
         width: 45%;
     }
 
-    @media (max-width: 480px) {
+    @media (max-width: 610px) {
         width: 99%;
     }
 
