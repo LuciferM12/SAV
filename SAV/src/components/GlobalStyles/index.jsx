@@ -13,6 +13,7 @@ html {
     font-family: "Poppins", system-ui;
     font-weight: 100;
     font-style: normal;
+    background-color: #110904;
   }
   main {
     display: block;
