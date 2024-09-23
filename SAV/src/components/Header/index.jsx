@@ -129,7 +129,7 @@ const Header = () => {
                 <li><Link to="/nosotros">Nosotros</Link></li>
                 <li><Link to="/productos">Productos</Link></li>
                 <li><Link to="/contacto">Contáctanos</Link></li>
-                <ButtonP texto={"Inicia Sesión"} ruta={"/signin"} size={"small"} color={"secondary"} />
+                <ButtonP texto={"Inicia Sesión"} ruta={"/login"} size={"small"} color={"secondary"} />
             </OpcionesEstilizadas>
         </HeaderEstilizado>
     );
