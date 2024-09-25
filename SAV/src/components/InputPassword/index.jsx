@@ -31,21 +31,30 @@ const CustomOutlinedInput = styled(OutlinedInput)({
     },
 });
 
-function InputPassword() {
+function InputPassword({ name }) {
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
     return (
         <ThemeProvider theme={Theme}>
             <Box sx={{ width: 500, maxWidth: '100%' }}>
-                {/* Usar FormControl para contener el label y el input */}
                 <FormControl variant="outlined" fullWidth>
-                    <InputLabel color='secondary' htmlFor="outlined-adornment-password" sx={{ color: 'gray' }}>
+                    <InputLabel
+                        htmlFor="outlined-adornment-password"
+                        color='secondary'
+                        sx={{
+                            color: 'gray',
+                            '&:hover': {
+                                color: 'white !important', // Cambia a blanco en hover
+                            },
+                        }}
+                    >
                         Password
                     </InputLabel>
                     <CustomOutlinedInput
                         id="outlined-adornment-password"
                         type={showPassword ? 'text' : 'password'}
+                        name={name}
                         fullWidth
                         color='secondary'
                         endAdornment={
@@ -60,7 +69,7 @@ function InputPassword() {
                                 </IconButton>
                             </InputAdornment>
                         }
-                        label="Password" // Necesario para que el label se muestre
+                        label="Password"
                     />
                 </FormControl>
             </Box>

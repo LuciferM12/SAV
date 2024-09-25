@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import GlobalStyles from '../../components/GlobalStyles'
 import Input from '../../components/Input'
 import InputPassword from '../../components/InputPassword'
+import Logo from '/AM_Logo.png';
 
 const InicioSesionEstilizado = styled.main`
     width: 100%;
@@ -22,8 +23,14 @@ const Divisor = styled.div`
     justify-content: center;
     gap: 50px;
     color: white;
+    img {
+        width: 20%;
+    }
     @media (max-width: 1020px) {
         width: 90%;
+        img {
+            width: 50%;
+        }
     }
 `
 
@@ -69,10 +76,10 @@ function Login() {
             <GlobalStyles />
             <InicioSesionEstilizado>
                 <Divisor >
+                    <img src={Logo} alt="logo" />
                     <h1>Inicie Sesión</h1>
-                    <Input placeholder={"Usuario"} color={"secondary"} id={"usuario"} type = {'text'}/>
-                    {/*<Input placeholder={"Contraseña"} color={"secondary"} id={"contrasenia"} type={"password"} />*/}
-                    <InputPassword/>
+                    <Input placeholder={"Usuario"} color={"secondary"} id={"usuario"} type={'text'} name={"user"} />
+                    <InputPassword name={"password"} />
                 </Divisor>
                 <ImagenDivisor />
             </InicioSesionEstilizado>
