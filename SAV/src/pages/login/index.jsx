@@ -4,6 +4,7 @@ import GlobalStyles from '../../components/GlobalStyles'
 import Input from '../../components/Input'
 import InputPassword from '../../components/InputPassword'
 import Logo from '/AM_Logo.png';
+import FormRender from '../../components/FormRender'
 
 const InicioSesionEstilizado = styled.main`
     width: 100%;
@@ -71,6 +72,28 @@ const ImagenDivisor = styled.div`
 `
 
 function Login() {
+    const inputs = [
+        {
+            placeholder: "Usuario",
+            color: "secondary",
+            id: "usuario",
+            type: "text",
+            name: "username"
+        },
+        {
+            placeholder: "Password",
+            color: "secondary",
+            type: "password",
+            name: "password",
+            id: "password"
+        }
+    ]
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        console.log('Enviado')
+    }
+
     return (
         <>
             <GlobalStyles />
@@ -78,8 +101,7 @@ function Login() {
                 <Divisor >
                     <img src={Logo} alt="logo" />
                     <h1>Inicie Sesión</h1>
-                    <Input placeholder={"Usuario"} color={"secondary"} id={"usuario"} type={'text'} name={"user"} />
-                    <InputPassword name={"password"} />
+                    <FormRender inputs={inputs} handleSubmit={handleSubmit} />
                 </Divisor>
                 <ImagenDivisor />
             </InicioSesionEstilizado>

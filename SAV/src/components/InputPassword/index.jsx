@@ -31,7 +31,7 @@ const CustomOutlinedInput = styled(OutlinedInput)({
     },
 });
 
-function InputPassword({ name }) {
+function InputPassword({ name, placeholder, color }) {
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -49,14 +49,14 @@ function InputPassword({ name }) {
                             },
                         }}
                     >
-                        Password
+                        {placeholder}
                     </InputLabel>
                     <CustomOutlinedInput
                         id="outlined-adornment-password"
                         type={showPassword ? 'text' : 'password'}
                         name={name}
                         fullWidth
-                        color='secondary'
+                        color={color}
                         endAdornment={
                             <InputAdornment position="end">
                                 <IconButton
@@ -69,7 +69,7 @@ function InputPassword({ name }) {
                                 </IconButton>
                             </InputAdornment>
                         }
-                        label="Password"
+                        label={placeholder}
                     />
                 </FormControl>
             </Box>
