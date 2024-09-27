@@ -11,7 +11,7 @@ function AppRoutes() {
                     <Route index element={<Inicio />}></Route>
                 </Route>
                 <Route path="/login" element={<Login />}></Route>
-
+                <Route path="/register" element={<Login />}></Route>
             </Routes>
         </BrowserRouter>
     )
