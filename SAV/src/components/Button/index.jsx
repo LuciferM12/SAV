@@ -5,7 +5,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import Theme from '../../utils/Theme';
 
 
-function ButtonP({ texto, color = "primary", ruta, variant = "contained", size, startIcon, endIcon, handleSubmit, type }) {
+function ButtonP({ texto, color = "primary", ruta, variant = "contained", size, startIcon, endIcon, handleSubmit, type, width }) {
     return (
         <ThemeProvider theme={Theme}>
             {ruta ?
@@ -17,6 +17,7 @@ function ButtonP({ texto, color = "primary", ruta, variant = "contained", size, 
                     startIcon={startIcon ? startIcon : null}
                     endIcon={endIcon ? endIcon : null}
                     to={ruta}
+                    sx={{ width: width || 'auto' }} // Ajustar ancho del botón
                 >
                     {texto}
                 </Button>
@@ -29,11 +30,11 @@ function ButtonP({ texto, color = "primary", ruta, variant = "contained", size, 
                     endIcon={endIcon ? endIcon : null}
                     onClick={handleSubmit}
                     type={type}
+                    sx={{ width: width || 'auto' }} // Ajustar ancho del botón
                 >
                     {texto}
                 </Button>
             }
-
         </ThemeProvider>
 
     )

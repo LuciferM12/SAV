@@ -1,14 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
 import GlobalStyles from '../../components/GlobalStyles'
-import Input from '../../components/Input'
-import InputPassword from '../../components/InputPassword'
 import Logo from '/AM_Logo.png';
 import FormRender from '../../components/FormRender'
+import { Link } from 'react-router-dom';
 
-const InicioSesionEstilizado = styled.main`
+const Registrar = styled.main`
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     background-color: black;
     display: flex;
     align-items: center;
@@ -16,7 +15,7 @@ const InicioSesionEstilizado = styled.main`
 `
 
 const Divisor = styled.div`
-    width: 50%;
+    width: 90%;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -27,48 +26,6 @@ const Divisor = styled.div`
     img {
         width: 20%;
     }
-    @media (max-width: 1020px) {
-        width: 90%;
-        img {
-            width: 50%;
-        }
-    }
-`
-
-const ImagenDivisor = styled.div`
-    width: 50%;
-    background-image: url('/about-section.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    overflow: hidden; 
-    position: relative;
-    height: 100%;
-    &::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 50px; /* Ancho del difuminado */
-        height: 100%;
-        background: linear-gradient(to right, rgba(0, 0, 0, 1), transparent); 
-        z-index: 2;
-    }
-
-    &::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.7); /* Color negro semi-transparente */
-        z-index: 1; 
-    }
-
-    @media (max-width: 1020px) {
-        display: none;
-    }
 `
 
 function SignUp() {
@@ -78,15 +35,50 @@ function SignUp() {
             color: "secondary",
             id: "usuario",
             type: "text",
-            name: "username"
+            name: "username",
+            width: 700
         },
         {
             placeholder: "Password",
             color: "secondary",
             type: "password",
             name: "password",
-            id: "password"
+            id: "password",
+            width: 700
+        },
+        {
+            placeholder: "Nombres",
+            color: "secondary",
+            id: "firstname",
+            type: "text",
+            name: "firstname",
+            width: 700
+        },
+        {
+            placeholder: "Apellidos",
+            color: "secondary",
+            id: "lastname",
+            type: "text",
+            name: "lastname",
+            width: 700
+        },
+        {
+            placeholder: "Edad",
+            color: "secondary",
+            id: "age",
+            type: "number",
+            name: "age",
+            width: 700
+        },
+        {
+            placeholder: "Telefono",
+            color: "secondary",
+            id: "phone",
+            type: "tel",
+            name: "phone",
+            width: 700
         }
+
     ]
 
     const handleSubmit = (e) => {
@@ -97,14 +89,13 @@ function SignUp() {
     return (
         <>
             <GlobalStyles />
-            <InicioSesionEstilizado>
+            <Registrar>
                 <Divisor >
                     <img src={Logo} alt="logo" />
-                    <h1>Inicie Sesión</h1>
-                    <FormRender inputs={inputs} handleSubmit={handleSubmit} />
+                    <h1>Registrate</h1>
+                    <FormRender inputs={inputs} handleSubmit={handleSubmit} align='flex-start' width={200} />
                 </Divisor>
-                <ImagenDivisor />
-            </InicioSesionEstilizado>
+            </Registrar>
         </>
     )
 }

@@ -110,7 +110,7 @@ const Header = () => {
     }, []);
 
     return (
-        <HeaderEstilizado semovio={semovio}>
+        <HeaderEstilizado $semovio={semovio}>
             {/* Botón de Menú para pantallas pequeñas */}
             <MenuButton onClick={toggleMenu}>
                 {menuOpen === 'true' ? <CloseIcon fontSize="large" /> : <MenuIcon fontSize="large" />}
@@ -124,7 +124,7 @@ const Header = () => {
             </LogoContainer>
 
             {/* Opciones del menú */}
-            <OpcionesEstilizadas isopen={menuOpen}>
+            <OpcionesEstilizadas $isopen={menuOpen}>
                 <li><Link to="/">Inicio</Link></li>
                 <li><Link to="/nosotros">Nosotros</Link></li>
                 <li><Link to="/productos">Productos</Link></li>

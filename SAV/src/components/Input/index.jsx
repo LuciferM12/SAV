@@ -25,10 +25,10 @@ const TextFieldStyled = styled(TextField)({
 
 
 
-function Input({ placeholder, type = 'text', id, color, maxWidth = '100%', name }) {
+function Input({ placeholder, type = 'text', id, color, width = 500, maxWidth = '100%', name }) {
   return (
     <ThemeProvider theme={Theme}>
-      <Box sx={{ width: 500, maxWidth: maxWidth }}>
+      <Box sx={{ width: width, maxWidth: maxWidth }}>
         <TextFieldStyled
           fullWidth
           label={placeholder}

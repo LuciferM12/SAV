@@ -31,13 +31,13 @@ const CustomOutlinedInput = styled(OutlinedInput)({
     },
 });
 
-function InputPassword({ name, placeholder, color }) {
+function InputPassword({ name, placeholder, color, width = 500, maxWidth = "100%" }) {
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
     return (
         <ThemeProvider theme={Theme}>
-            <Box sx={{ width: 500, maxWidth: '100%' }}>
+            <Box sx={{ width: width, maxWidth: maxWidth }}>
                 <FormControl variant="outlined" fullWidth>
                     <InputLabel
                         htmlFor="outlined-adornment-password"

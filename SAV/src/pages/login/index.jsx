@@ -13,6 +13,7 @@ const InicioSesionEstilizado = styled.main`
     display: flex;
     align-items: center;
     justify-content: center;
+    
 `
 
 const Divisor = styled.div`
@@ -78,14 +79,16 @@ function Login() {
             color: "secondary",
             id: "usuario",
             type: "text",
-            name: "username"
+            name: "username",
+            width: "70%"
         },
         {
             placeholder: "Password",
             color: "secondary",
             type: "password",
             name: "password",
-            id: "password"
+            id: "password",
+            width: "70%"
         }
     ]
 
@@ -101,7 +104,7 @@ function Login() {
                 <Divisor >
                     <img src={Logo} alt="logo" />
                     <h1>Inicie Sesión</h1>
-                    <FormRender inputs={inputs} handleSubmit={handleSubmit} />
+                    <FormRender inputs={inputs} handleSubmit={handleSubmit} size={"large"} />
                 </Divisor>
                 <ImagenDivisor />
             </InicioSesionEstilizado>
