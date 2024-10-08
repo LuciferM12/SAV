@@ -27,7 +27,7 @@ const Entradas = styled.div`
 function FormRender({ inputs, textButton = "Enviar", handleSubmit, type, size, width, align = "center" }) {
   return (
     <FormEstilizado>
-      <Entradas $align={align}>
+      <Entradas align={align}>
         {
           inputs.map((input, index) => (
             input.type != "password" ?

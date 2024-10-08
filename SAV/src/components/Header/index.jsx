@@ -12,7 +12,7 @@ const HeaderEstilizado = styled.header`
     justify-content: space-between;
     width: 100%;
     height: 80px;
-    background-color: ${({ semovio }) => (semovio === "true" ? '#110904' : 'transparent')};
+    background-color: ${({ semovio }) => (semovio === "true" ? '#141414' : 'transparent')};
     color: white;
     padding: 0px 30px;
     box-sizing: border-box;
@@ -20,11 +20,15 @@ const HeaderEstilizado = styled.header`
     top: 0px;
     transition: background-color 0.3s ease;
     z-index: 1000;
+    
+    box-shadow: ${({ semovio }) => (semovio === "true" && '0px 10px 5px -8px rgba(0,0,0,0.75)')};  
+    -webkit-box-shadow: ${({ semovio }) => (semovio === "true" && '0px 10px 5px -8px rgba(0,0,0,0.75)')}; 
+    -moz-box-shadow:${({ semovio }) => (semovio === "true" && '0px 10px 5px -8px rgba(0,0,0,0.75)')}; 
 
     @media (max-width: 768px) {
         padding: 10px 20px;
         justify-content: space-between;
-        background-color: #110904;
+        background-color: #141414;
     }
 `;
 
@@ -50,7 +54,7 @@ const OpcionesEstilizadas = styled.ul`
         position: absolute;
         top: 51px;
         left: 0;
-        background-color: #110904;
+        background-color: #141414;
         width: 100%;
         padding: 20px 0;
         box-sizing: border-box;
