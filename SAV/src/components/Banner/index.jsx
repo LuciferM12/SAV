@@ -1,6 +1,4 @@
 import styled from "styled-components"
-//import Buttton from "../Button"
-import Button from '@mui/material/Button';
 import ButtonP from "../Button";
 
 const BannerEstilizado = styled.div`

@@ -3,6 +3,7 @@ import Base from "./pages/Base";
 import Inicio from "./pages/Inicio";
 import Login from "./pages/login";
 import SignUp from "./pages/SignUp";
+import Perfil from "./pages/Perfil";
 
 function AppRoutes() {
     return (
@@ -10,6 +11,7 @@ function AppRoutes() {
             <Routes>
                 <Route path="/" element={<Base />} >
                     <Route index element={<Inicio />}></Route>
+                    <Route path="profile" element={<Perfil />}/>
                 </Route>
                 <Route path="/login" element={<Login />}></Route>
                 <Route path="/register" element={<SignUp />}></Route>
