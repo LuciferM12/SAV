@@ -5,11 +5,12 @@ import FormRender from '../../components/FormRender'
 
 const Contenedor = styled.div`
     width: 100%;
-    min-height: 110vh;
+    min-height: 100vh;
     display: flex;
     background-color: #110904;
     color: white;
-    padding: 50px;
+    padding-top: 100px;
+    padding-bottom: 100px;
     box-sizing: border-box;
     align-items: center;
     justify-content: center;
@@ -25,7 +26,9 @@ const Perfil = () => {
       id: "usuario",
       type: "text",
       name: "username",
-      width: 700
+      width: 700,
+      required: true,
+      value: "Iguaneitor93"
     },
     {
       placeholder: "Password",
@@ -33,7 +36,9 @@ const Perfil = () => {
       type: "password",
       name: "password",
       id: "password",
-      width: 700
+      width: 700,
+      required: true,
+      value: "1234"
     },
     {
       placeholder: "Nombres",
@@ -41,7 +46,9 @@ const Perfil = () => {
       id: "firstname",
       type: "text",
       name: "firstname",
-      width: 700
+      width: 700,
+      required: true,
+      value: "Victor"
     },
     {
       placeholder: "Apellidos",
@@ -49,7 +56,9 @@ const Perfil = () => {
       id: "lastname",
       type: "text",
       name: "lastname",
-      width: 700
+      width: 700,
+      required: true,
+      value: "Castro"
     },
     {
       placeholder: "Edad",
@@ -57,7 +66,9 @@ const Perfil = () => {
       id: "age",
       type: "number",
       name: "age",
-      width: 700
+      width: 700,
+      required: true,
+      value: 20
     },
     {
       placeholder: "Telefono",
@@ -65,16 +76,16 @@ const Perfil = () => {
       id: "phone",
       type: "tel",
       name: "phone",
-      width: 700
+      width: 700,
+      required: false,
+      value: "444444444"
     }
   ]
   return (
     <Contenedor>
-      <Avvvatars value="best_user@gmail.com" size={200} style='shape' />
-      <p>best_user@gmail.com</p>
-      <FormRender inputs={inputs} />
-
-
+      <Avvvatars value="nazi" size={200} style='shape' />
+      <h3>Cliente</h3>
+      <FormRender inputs={inputs} edition={true} />
     </Contenedor>
 
   )

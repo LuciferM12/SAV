@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Input from '../Input'
 import InputPassword from '../InputPassword'
 import ButtonP from '../Button'
@@ -24,7 +24,30 @@ const Entradas = styled.div`
   }
 `
 
-function FormRender({ inputs, textButton = "Enviar", handleSubmit, type, size, width, align = "center" }) {
+function FormRender({ inputs, textButton = "Enviar", handleSubmit, type, size, width, align = "center", edition = false, textButtonEdition }) {
+
+  const [formValues, setFormValues] = useState(() => {
+  const initialValues = {};
+  inputs.forEach(input => {
+    initialValues[input.name] = input.value; // Inicializa con valores vacíos
+  });
+    return initialValues;
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues({
+      ...formValues,
+      [name]: value, // Actualiza el valor del input correspondiente
+    });
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault(); // Evita que la página se recargue
+    handleSubmit(formValues); // Llama la función handleSubmit pasando los valores del formulario
+  };
+
+  const [editing, setEditing] = useState(edition)
   return (
     <FormEstilizado>
       <Entradas align={align}>
@@ -40,6 +63,10 @@ function FormRender({ inputs, textButton = "Enviar", handleSubmit, type, size, w
                 id={input.id}
                 width={input.width}
                 maxWidth={input.maxWidth}
+                required={input.required}
+                disabled={editing}
+                value={formValues[input.name]}
+                onChange={handleInputChange}
               />
               :
               <InputPassword
@@ -53,7 +80,13 @@ function FormRender({ inputs, textButton = "Enviar", handleSubmit, type, size, w
           ))
         }
       </Entradas>
-      <ButtonP texto={textButton} size={size} type={type} handleSubmit={handleSubmit} width={width} />
+      {
+        !edition ? <ButtonP texto={textButton} size={size} type={type} handleSubmit={handleFormSubmit} width={width} />
+          :
+          <ButtonP texto={"Editar"} size={size} type={type} handleSubmit={handleFormSubmit} width={width} />
+
+      }
+
     </FormEstilizado>
   )
 }
