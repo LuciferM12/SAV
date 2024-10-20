@@ -3,9 +3,9 @@ import ButtonP from "../Button";
 
 const BannerEstilizado = styled.div`
     width: 100%;
-    height: 90vh;
+    height: ${({ height }) => height};
     display: flex;
-    background-image: url('/POSTRES.JPG');
+    background-image: ${({ imageurl }) => `url(${imageurl})`};
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -18,7 +18,7 @@ const BannerEstilizado = styled.div`
     top: 0;
     left: 0;
     width: 100%;
-    height: 90vh;
+    height: ${({ height }) => height};
     background-color: rgba(0, 0, 0, 0.7); 
     z-index: 1; 
   }
@@ -46,17 +46,25 @@ const BannerEstilizado = styled.div`
   
 `
 
-function Banner() {
+function Banner({ height = '90vh', image, tipo, titulo, descripcion, secundario = false }) {
     return (
         <>
-            <BannerEstilizado>
+            <BannerEstilizado height={height} imageurl={image}>
                 <div>
-                    <h2>Restaurante</h2>
-                    <h1>Antojitos Mary</h1>
-                    <p>Uno de los restaurantes más prestigiosos de San Luis Potosí. Con precios accesibles y uno de los mejores servicios.</p>
-                    <ButtonP texto={"menú"} size={"large"} ruta={"/menu"} />
-                </div>
 
+                    {
+                        secundario === true ?
+                            <h1>{titulo}</h1>
+                            :
+                            <>
+                                <h2>{tipo}</h2>
+                                <h1>{titulo}</h1>
+                                <p>{descripcion}</p>
+                                <ButtonP texto={"menú"} size={"large"} ruta={"/menu"} />
+                            </>
+                    }
+
+                </div>
             </BannerEstilizado>
         </>
     )
