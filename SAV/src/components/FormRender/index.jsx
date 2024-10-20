@@ -78,6 +78,10 @@ function FormRender({ inputs, textButton = "Enviar", handleSubmit, type, size, w
                 key={index}
                 width={input.width}
                 maxWidth={input.maxWidth}
+                required={input.required}
+                disabled={editing}
+                value={formValues[input.name]}
+                onChange={handleInputChange}
               />
           ))
         }

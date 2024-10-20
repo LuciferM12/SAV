@@ -11,27 +11,32 @@ import styled from 'styled-components';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 
-const CustomOutlinedInput = styled(OutlinedInput)({
-    // Cambiar color del borde
+const CustomOutlinedInput = styled(OutlinedInput)(({ theme }) => ({
     '& .MuiOutlinedInput-notchedOutline': {
-        borderColor: 'gray !important', // Cambia a tu color deseado
+        borderColor: 'gray !important',
     },
     '&:hover .MuiOutlinedInput-notchedOutline': {
-        borderColor: 'white !important', // Color del borde en hover
+        borderColor: 'white !important',
     },
-    // Cambiar color del texto escrito
     '& .MuiInputBase-input': {
-        color: 'white', // Cambia a tu color deseado
+        color: 'white !important',
+    },
+    '&.Mui-disabled .MuiInputBase-input': {
+        color: 'white !important',
+        WebkitTextFillColor: 'white !important' // Color del texto cuando está deshabilitado
     },
     '&:hover .MuiInputLabel-root': {
-        color: 'white !important', // Color del label al hacer hover
+        color: 'white !important',
     },
     '&.Mui-focused .MuiInputLabel-root': {
-        color: 'white !important', // Color del label cuando está enfocado
+        color: 'white !important',
     },
-});
+    '&.Mui-disabled .MuiInputLabel-root': {
+        color: 'white !important', // Asegura que el label también se mantenga blanco
+    },
+}));
 
-function InputPassword({ name, placeholder, color, width = 500, maxWidth = "100%" }) {
+function InputPassword({ name, placeholder, color, width = 500, maxWidth = "100%", required = false, disabled = false, value, onChange }) {
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -43,7 +48,7 @@ function InputPassword({ name, placeholder, color, width = 500, maxWidth = "100%
                         htmlFor="outlined-adornment-password"
                         color='secondary'
                         sx={{
-                            color: 'gray',
+                            color: 'white !important',
                             '&:hover': {
                                 color: 'white !important', // Cambia a blanco en hover
                             },
@@ -57,6 +62,10 @@ function InputPassword({ name, placeholder, color, width = 500, maxWidth = "100%
                         name={name}
                         fullWidth
                         color={color}
+                        required={required}
+                        disabled={disabled}
+                        value={value}
+                        onChange={onChange}
                         endAdornment={
                             <InputAdornment position="end">
                                 <IconButton
