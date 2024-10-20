@@ -85,7 +85,7 @@ const Perfil = () => {
     <Contenedor>
       <Avvvatars value="nazi" size={200} style='shape' />
       <h3>Cliente</h3>
-      <FormRender inputs={inputs} edition={true} />
+      <FormRender inputs={inputs} edition={true} size={"large"}/>
     </Contenedor>
 
   )

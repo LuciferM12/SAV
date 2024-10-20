@@ -3,6 +3,8 @@ import Input from '../Input'
 import InputPassword from '../InputPassword'
 import ButtonP from '../Button'
 import styled from 'styled-components'
+import { MdEditDocument, MdCancel } from "react-icons/md";
+import { FaSave } from "react-icons/fa";
 
 const FormEstilizado = styled.form`
   display: flex;
@@ -27,10 +29,10 @@ const Entradas = styled.div`
 function FormRender({ inputs, textButton = "Enviar", handleSubmit, type, size, width, align = "center", edition = false, textButtonEdition }) {
 
   const [formValues, setFormValues] = useState(() => {
-  const initialValues = {};
-  inputs.forEach(input => {
-    initialValues[input.name] = input.value; // Inicializa con valores vacíos
-  });
+    const initialValues = {};
+    inputs.forEach(input => {
+      initialValues[input.name] = input.value; // Inicializa con valores vacíos
+    });
     return initialValues;
   });
 
@@ -81,10 +83,16 @@ function FormRender({ inputs, textButton = "Enviar", handleSubmit, type, size, w
         }
       </Entradas>
       {
-        !edition ? <ButtonP texto={textButton} size={size} type={type} handleSubmit={handleFormSubmit} width={width} />
+        !edition ? 
+          <ButtonP texto={textButton} size={size} type={type} handleSubmit={handleFormSubmit} width={width} />
           :
-          <ButtonP texto={"Editar"} size={size} type={type} handleSubmit={handleFormSubmit} width={width} />
-
+            editing ?
+              <ButtonP texto={"Editar"} size={size} type={type} handleSubmit={() => setEditing(false)} width={width} endIcon={<MdEditDocument />} />
+            :
+              <>
+              <ButtonP texto={"Guardar"} size={size} type={type} handleSubmit={() => setEditing(true)} width={width} endIcon={<FaSave />} />
+              <ButtonP texto={"Cancelar"} size={size} type={type} color='secondary' handleSubmit={() => setEditing(true)} width={width} endIcon={<MdCancel />} />
+              </>
       }
 
     </FormEstilizado>
