@@ -34,9 +34,9 @@ function Opinion() {
         <SectionEstilizado>
             <h1>Opiniones</h1>
             <ContenedorOpiniones>
-                <OpinionCard />
-                <OpinionCard />
-                <OpinionCard />
+                <OpinionCard usuario={"Iguano"} stars={2}/>
+                <OpinionCard usuario={"Albertolt"} stars={1} />
+                <OpinionCard usuario={"ENMP"} stars={5}/>
             </ContenedorOpiniones>
         </SectionEstilizado>
     )
