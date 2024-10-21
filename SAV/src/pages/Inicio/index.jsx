@@ -2,6 +2,7 @@ import Banner from "../../components/Banner"
 import Historia from "../../components/Historia"
 import Productos from "../../components/Catalogo"
 import Fondo from '../../assets/images/POSTRES.JPG'
+import Opinion from "../../components/Opinion"
 
 const Inicio = () => {
     const productos = [
@@ -26,11 +27,12 @@ const Inicio = () => {
                 descripcion={"Uno de los restaurantes más prestigiosos de San Luis Potosí. Con precios accesibles y uno de los mejores servicios."}
             />
             <Historia />
-            <Productos 
-                productos={productos} 
+            <Productos
+                productos={productos}
                 categorias={categorias}
                 titulo={"Principales Productos"}
             />
+            <Opinion />
         </>
     )
 }

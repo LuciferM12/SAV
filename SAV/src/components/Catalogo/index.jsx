@@ -22,7 +22,7 @@ const SectionEstilizado = styled.section`
   text-align: center;
   @media (max-width: 480px) {
     padding: 20px;
-    }
+  }
 `
 
 const ProductosEstilizados = styled.div`
@@ -44,9 +44,7 @@ function Catalogo({ productos, categorias, titulo }) {
     };
 
     useEffect(() => {
-        // Filtrar productos en función de la pestaña seleccionada
-        //const categoria = value === 0 ? 'Platillos' : 'Bebidas';
-        const categoria = categorias[value].nombre 
+        const categoria = categorias[value].nombre
         const productosFiltrados = productos.filter(p => p.categoria === categoria);
         setFilteredProducts(productosFiltrados);
     }, [value]);
@@ -68,11 +66,11 @@ function Catalogo({ productos, categorias, titulo }) {
                             indicatorColor='secondary'
                             aria-label="scrollable force tabs example"
                         >
-                        {
-                            categorias.map((categoria, index) => (
-                                <Tab key={index} label={categoria.nombre} />
-                            ))
-                        }
+                            {
+                                categorias.map((categoria, index) => (
+                                    <Tab key={index} label={categoria.nombre} />
+                                ))
+                            }
                         </Tabs>
                     </Box>
 

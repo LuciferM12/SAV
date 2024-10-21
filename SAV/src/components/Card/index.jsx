@@ -34,7 +34,7 @@ const CardEstilizada = styled.div`
         width: 45%;
     }
 
-    @media (max-width: 610px) {
+    @media (max-width: 700px) {
         width: 99%;
     }
 
