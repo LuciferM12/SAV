@@ -3,19 +3,20 @@ import morgan from 'morgan'
 import multer from 'multer'
 import cors from 'cors'
 import { pool } from './db.js'
+import { FRONTED_URL, PORT } from './config.js'
 
 const app = express()
 const upload = multer({ storage: multer.memoryStorage() })
 
 app.use(cors({
-    origin: 'http://localhost:5173'
+    origin: FRONTED_URL
 }))
 
 app.use(morgan('dev'))
 app.use(express.json())
 
-app.listen(3000)
-console.log(`Server on port ${3000}`)
+app.listen(PORT)
+console.log(`Server on port ${PORT}`)
 
 app.get("/ping", async (req, res) => {
     const result = await pool.query('SELECT NOW()')
