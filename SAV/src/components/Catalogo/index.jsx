@@ -35,8 +35,7 @@ const ProductosEstilizados = styled.div`
     
 
 `
-function Catalogo({ productos, categorias, titulo }) {
-    const [value, setValue] = useState(0);
+function Catalogo({ productos, categorias, titulo, value, setValue }) {
     const [filteredProducts, setFilteredProducts] = useState([]);
 
     const handleChange = (event, newValue) => {
@@ -44,10 +43,19 @@ function Catalogo({ productos, categorias, titulo }) {
     };
 
     useEffect(() => {
-        const categoria = categorias[value].nombre
-        const productosFiltrados = productos.filter(p => p.categoria === categoria);
-        setFilteredProducts(productosFiltrados);
-    }, [value]);
+        if (categorias && categorias.length > 0) {
+            // Asumiendo que categorias es un array de objetos con { categoria: 'nombre_categoria' }
+            const categoriaActual = categorias[value]?.categoria;
+            if (categoriaActual) {
+                const productosFiltrados = productos.filter(p => p.categoria === categoriaActual);
+                setFilteredProducts(productosFiltrados);
+            }
+        }
+    }, [value, categorias, productos]);
+
+    if (!categorias || categorias.length === 0) {
+        return <div>Cargando categorías...</div>;
+    }
 
 
     return (
@@ -68,7 +76,7 @@ function Catalogo({ productos, categorias, titulo }) {
                         >
                             {
                                 categorias.map((categoria, index) => (
-                                    <Tab key={index} label={categoria.nombre} />
+                                    <Tab key={index} label={categoria.categoria} />
                                 ))
                             }
                         </Tabs>
@@ -78,7 +86,7 @@ function Catalogo({ productos, categorias, titulo }) {
             </div>
             <ProductosEstilizados>
                 {filteredProducts.map((product, index) => (
-                    <Card key={index} nombre={product.nombre} precio={product.costo} imagen={product.foto} descripcion={product.descripcion} />
+                    <Card key={index} nombre={product.nombre_producto} precio={product.precio} imagen={product.image} descripcion={product.descripcion} />
                 ))}
             </ProductosEstilizados>
 

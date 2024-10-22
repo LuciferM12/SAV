@@ -154,7 +154,37 @@ app.post('/productos', upload.single('imagen'), async (req, res) => {
 })
 
 app.get("/productos", async (req, res) => {
-    const result = await pool.query('SELECT * FROM productos')
+    try {
+        const result = await pool.query(`
+            SELECT 
+                productos.nombre_producto, 
+                productos.precio, 
+                productos.descripcion, 
+                productos.categoria, 
+                productos.tipo, 
+                images.data AS image_data, 
+                images.mimetype 
+            FROM productos 
+            INNER JOIN images ON productos.id_imagen = images.id
+        `);
+        
+        // Transformar cada fila para incluir la imagen como base64
+        const productosConImagenes = result.rows.map(producto => {
+            return {
+                ...producto,
+                image: `data:${producto.mimetype};base64,${producto.image_data.toString('base64')}`
+            };
+        });
+
+        res.json(productosConImagenes);
+    } catch (error) {
+        console.error("Error al obtener productos:", error);
+        res.status(500).json({ message: "Error al obtener productos" });
+    }
+});
+
+app.get("/categorias", async (req, res) => {
+    const result = await pool.query('SELECT DISTINCT categoria FROM productos');
     res.json(result.rows)
 })
 
