@@ -1,9 +1,12 @@
 import express from 'express'
 import morgan from 'morgan'
+import multer from 'multer'
 import cors from 'cors'
 import { pool } from './db.js'
 
 const app = express()
+const upload = multer({ storage: multer.memoryStorage() })
+
 app.use(cors({
     origin: 'http://localhost:5173'
 }))
@@ -36,9 +39,9 @@ app.post("/usuarios", async (req, res) => {
         const result = await pool.query(query, values)
         res.json(result.rows[0])
     } catch (error) {
-        res.status(500).json({message: "Error en el servidor"})
+        res.status(500).json({ message: "Error en el servidor" })
     }
-    
+
 })
 
 app.put("/usuarios/:id", async (req, res) => {
@@ -86,8 +89,73 @@ app.get("/usuarios/:id", async (req, res) => {
         const result = await pool.query(query, values)
         res.json(result.rows[0])
     } catch (error) {
-        res.status(500).json({message: "Error en el servidor"})
+        res.status(500).json({ message: "Error en el servidor" })
     }
+})
+
+app.post('/upload', upload.single('image'), async (req, res) => {
+    try {
+        const { buffer, mimetype } = req.file;  // Accede a la imagen y su tipo MIME
+
+        const query = 'INSERT INTO images (data, mimetype) VALUES ($1, $2) RETURNING *';
+        const values = [buffer, mimetype];  // Almacena la imagen como un buffer
+        const result = await pool.query(query, values);
+
+        res.json({ message: 'Image uploaded successfully', image: result.rows[0] });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error uploading image' });
+    }
+});
+
+app.get('/image/:id', async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const query = 'SELECT data, mimetype FROM images WHERE id = $1';
+        const result = await pool.query(query, [id]);
+
+        if (result.rows.length > 0) {
+            const image = result.rows[0];
+            res.set('Content-Type', image.mimetype);  // Establece el tipo MIME correcto
+            res.send(image.data);  // Envía la imagen en formato binario
+        } else {
+            res.status(404).send('Image not found');
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error fetching image');
+    }
+});
+
+app.post('/productos', upload.single('imagen'), async (req, res) => {
+    const { producto, precio, description, categoria, tipo } = req.body;
+    const imagen = req.file;
+
+    if (!imagen) {
+        return res.status(400).json({ message: 'Image not provided' })
+    }
+
+    try {
+        let query = 'INSERT INTO images (data, mimetype) VALUES ($1, $2) RETURNING *';
+        let values = [imagen.buffer, imagen.mimetype]
+
+        let result = await pool.query(query, values)
+
+        query = 'INSERT INTO productos (nombre_producto, precio, descripcion, id_imagen, categoria, tipo) VALUES ($1, $2, $3, $4, $5, $6) RETURNING * ';
+        values = [producto, precio, description, result.rows[0].id, categoria, tipo]
+        result = await pool.query(query, values)
+
+        res.json({ message: 'Product created successfully', product: result.rows[0] })
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ message: 'Error creating product' })
+    }
+})
+
+app.get("/productos", async (req, res) => {
+    const result = await pool.query('SELECT * FROM productos')
+    res.json(result.rows)
 })
 
 
@@ -97,8 +165,7 @@ app.get("/usuarios/:id", async (req, res) => {
 
 
 
-
-const productos = [
+/*const productos = [
     { id: 1, foto: '/Totita.jpg', nombre: 'Platillo 1', costo: 50.50, descripcion: 'Descripción 1', categoria: 'Carnes' },
     { id: 2, foto: '/limonada.jpg', nombre: 'Bebida 3', costo: 70.00, descripcion: 'Descripción 2', categoria: 'Ensaladas' },
     { id: 3, foto: '/monster.jpg', nombre: 'Bebida 1', costo: 30.00, descripcion: 'Descripción 3', categoria: 'Postres' },
@@ -136,4 +203,4 @@ app.get('/productos/:id', (req, res) => {
     })
     console.log(productoEncontrado)
     res.json()
-})
+})*/
