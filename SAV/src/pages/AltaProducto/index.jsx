@@ -27,6 +27,8 @@ const Divisor = styled.div`
     }
 `
 
+const URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000"
+
 function AltaProducto() {
     const inputs = [
         {
@@ -105,7 +107,7 @@ function AltaProducto() {
         }
 
         try {
-            const response = await fetch('http://localhost:3000/productos', {
+            const response = await fetch(`${URL}/productos`, {
                 method: 'POST',
                 body: formData,
             });

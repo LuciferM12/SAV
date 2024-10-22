@@ -20,6 +20,8 @@ const Contenedor = styled.div`
     gap: 20px;
 `
 
+const URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000"
+
 function Productos() {
     const [value, setValue] = useState(1);
     const [categorias, setCategorias] = useState([])
@@ -28,7 +30,7 @@ function Productos() {
     useEffect(() => {
         const fetchCategorias = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/categorias')
+                const response = await axios.get(`${URL}/categorias`)
                 setCategorias(response.data)
             }catch(error){
                 console.log(error)
@@ -36,7 +38,7 @@ function Productos() {
         }
         const fetchProductos = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/productos');
+                const response = await axios.get(`${URL}/productos`);
                  setProductos(response.data);
             } catch (error) {
                 console.error('Error al obtener productos:', error);

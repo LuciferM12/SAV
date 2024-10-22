@@ -14,6 +14,7 @@ const FormularioEst = styled.form`
     color: wheat;
 `
 
+const URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000"
 
 function ImageUpload() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -29,7 +30,7 @@ function ImageUpload() {
     formData.append('image', selectedImage); // Agrega la imagen al FormData
 
     try {
-      const response = await fetch('http://localhost:3000/upload', {
+      const response = await fetch(`${URL}/upload`, {
         method: 'POST',
         body: formData,
       });

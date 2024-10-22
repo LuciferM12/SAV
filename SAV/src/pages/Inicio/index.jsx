@@ -6,6 +6,8 @@ import Productos from "../../components/Catalogo"
 import Fondo from '../../assets/images/POSTRES.JPG'
 import Opinion from "../../components/Opinion"
 
+const URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000"
+
 const Inicio = () => {
     const [categorias, setCategorias] = useState([])
     const [productos, setProductos] = useState([])
@@ -14,16 +16,16 @@ const Inicio = () => {
     useEffect(() => {
         const fetchCategorias = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/tipos')
+                const response = await axios.get(`${URL}/tipos`)
                 setCategorias(response.data)
-            }catch(error){
+            } catch (error) {
                 console.log(error)
             }
         }
         const fetchProductos = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/productos');
-                 setProductos(response.data);
+                const response = await axios.get(`${URL}/productos`);
+                setProductos(response.data);
             } catch (error) {
                 console.error('Error al obtener productos:', error);
             }
