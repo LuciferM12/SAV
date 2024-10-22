@@ -93,7 +93,7 @@ function SignUp() {
                 <Divisor >
                     <img src={Logo} alt="logo" />
                     <h1>Registrate</h1>
-                    <FormRender inputs={inputs} handleSubmit={handleSubmit} align='flex-start' width={200} />
+                    <FormRender inputs={inputs} handleSubmit={handleSubmit} align='center' width={200} />
                 </Divisor>
             </Registrar>
         </>
