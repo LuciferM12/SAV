@@ -35,7 +35,7 @@ const ProductosEstilizados = styled.div`
     
 
 `
-function Catalogo({ productos, categorias, titulo, value, setValue }) {
+function Catalogo({ productos, categorias, titulo, value, setValue, caso = 1 }) {
     const [filteredProducts, setFilteredProducts] = useState([]);
 
     const handleChange = (event, newValue) => {
@@ -47,8 +47,14 @@ function Catalogo({ productos, categorias, titulo, value, setValue }) {
             // Asumiendo que categorias es un array de objetos con { categoria: 'nombre_categoria' }
             const categoriaActual = categorias[value]?.categoria;
             if (categoriaActual) {
-                const productosFiltrados = productos.filter(p => p.categoria === categoriaActual);
-                setFilteredProducts(productosFiltrados);
+                if (caso === 1) {
+                    const productosFiltrados = productos.filter(p => p.categoria === categoriaActual);
+                    setFilteredProducts(productosFiltrados);
+                } else {
+                    const productosFiltrados = productos.filter(p => p.tipo === categoriaActual);
+                    setFilteredProducts(productosFiltrados);
+                }
+
             }
         }
     }, [value, categorias, productos]);

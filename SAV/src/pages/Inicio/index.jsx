@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react"
+import axios from "axios"
 import Banner from "../../components/Banner"
 import Historia from "../../components/Historia"
 import Productos from "../../components/Catalogo"
@@ -5,18 +7,30 @@ import Fondo from '../../assets/images/POSTRES.JPG'
 import Opinion from "../../components/Opinion"
 
 const Inicio = () => {
-    const productos = [
-        { foto: '/Totita.jpg', nombre: 'Platillo 1', costo: 50.50, descripcion: 'Descripción 1', categoria: 'Platillos' },
-        { foto: '/limonada.jpg', nombre: 'Bebida 3', costo: 70.00, descripcion: 'Descripción 2', categoria: 'Bebidas' },
-        { foto: '/monster.jpg', nombre: 'Bebida 1', costo: 30.00, descripcion: 'Descripción 3', categoria: 'Bebidas' },
-        { foto: '/jamaica.jpg', nombre: 'Bebida 2', costo: 40.00, descripcion: 'Descripción 4', categoria: 'Bebidas' },
-        // Más productos...
-    ];
+    const [categorias, setCategorias] = useState([])
+    const [productos, setProductos] = useState([])
+    const [value, setValue] = useState(1);
 
-    const categorias = [
-        { id: 1, nombre: "Platillos" },
-        { id: 2, nombre: "Bebidas" },
-    ]
+    useEffect(() => {
+        const fetchCategorias = async () => {
+            try {
+                const response = await axios.get('http://localhost:3000/tipos')
+                setCategorias(response.data)
+            }catch(error){
+                console.log(error)
+            }
+        }
+        const fetchProductos = async () => {
+            try {
+                const response = await axios.get('http://localhost:3000/productos');
+                 setProductos(response.data);
+            } catch (error) {
+                console.error('Error al obtener productos:', error);
+            }
+        }
+        fetchProductos()
+        fetchCategorias()
+    }, [])
 
     return (
         <>
@@ -31,6 +45,9 @@ const Inicio = () => {
                 productos={productos}
                 categorias={categorias}
                 titulo={"Principales Productos"}
+                value={value}
+                setValue={setValue}
+                caso={2}
             />
             <Opinion />
         </>

@@ -24,20 +24,6 @@ function Productos() {
     const [value, setValue] = useState(1);
     const [categorias, setCategorias] = useState([])
     const [productos, setProductos] = useState([]) 
-    /*const productos = [
-        { foto: '/Totita.jpg', nombre: 'Platillo 1', costo: 50.50, descripcion: 'Descripción 1', categoria: 'Carnes' },
-        { foto: '/limonada.jpg', nombre: 'Bebida 3', costo: 70.00, descripcion: 'Descripción 2', categoria: 'Ensaladas' },
-        { foto: '/monster.jpg', nombre: 'Bebida 1', costo: 30.00, descripcion: 'Descripción 3', categoria: 'Postres' },
-        { foto: '/jamaica.jpg', nombre: 'Bebida 2', costo: 40.00, descripcion: 'Descripción 4', categoria: 'Bebidas' },
-        // Más productos...
-    ];*/
-
-    /*const categorias = [
-        { id: 1, nombre: "Carnes" },
-        { id: 2, nombre: "Ensaladas" },
-        { id: 3, nombre: "Postres" },
-        { id: 4, nombre: "Bebidas" },
-    ]*/
 
     useEffect(() => {
         const fetchCategorias = async () => {
