@@ -30,10 +30,11 @@ const ProductosEstilizados = styled.div`
     display: flex;
     gap: 30px;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
     box-sizing: border-box;
-    
-
+    @media (max-width: 1600px) {
+        justify-content: center;
+    }
 `
 function Catalogo({ productos, categorias, titulo, value, setValue, caso = 1 }) {
     const [filteredProducts, setFilteredProducts] = useState([]);

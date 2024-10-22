@@ -24,7 +24,7 @@ const ContenedorOpiniones = styled.div`
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-evenly;
     flex-wrap: wrap;
     gap: 30px;
 `
