@@ -188,6 +188,11 @@ app.get("/categorias", async (req, res) => {
     res.json(result.rows)
 })
 
+app.get("/tipos", async (req, res) => {
+    const result = await pool.query('SELECT DISTINCT tipo as categoria FROM productos');
+    res.json(result.rows)
+})
+
 
 
 
