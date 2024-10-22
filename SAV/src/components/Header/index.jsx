@@ -130,9 +130,9 @@ const Header = () => {
             {/* Opciones del menú */}
             <OpcionesEstilizadas isopen={menuOpen}>
                 <li><Link to="/">Inicio</Link></li>
-                <li><Link to="/nosotros">Nosotros</Link></li>
+                <li><Link to="/register">Nosotros</Link></li>
                 <li><Link to="/productos">Productos</Link></li>
-                <li><Link to="/contacto">Contáctanos</Link></li>
+                <li><Link to="/altaproducto">Contáctanos</Link></li>
                 <ButtonP texto={"Inicia Sesión"} ruta={"/login"} size={"small"} color={"secondary"} />
             </OpcionesEstilizadas>
         </HeaderEstilizado>
