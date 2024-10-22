@@ -32,17 +32,26 @@ function FormRender({ inputs, textButton = "Enviar", handleSubmit, type, size, w
   const [formValues, setFormValues] = useState(() => {
     const initialValues = {};
     inputs.forEach(input => {
-      initialValues[input.name] = input.value; // Inicializa con valores vacíos
+      initialValues[input.name] = input.value || ''; // Inicializa con valores vacíos
     });
     return initialValues;
   });
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormValues({
-      ...formValues,
-      [name]: value, // Actualiza el valor del input correspondiente
-    });
+    const { name, type, files } = e.target; // Extraer también 'type' y 'files'
+
+    if (type === 'file' && files.length > 0) {
+      // Si el input es de tipo file, tomamos el primer archivo
+      setFormValues({
+        ...formValues,
+        [name]: files[0], // Guardamos el archivo en formValues
+      });
+    } else {
+      setFormValues({
+        ...formValues,
+        [name]: e.target.value, // Actualiza el valor del input correspondiente
+      });
+    }
   };
 
   const handleFormSubmit = (e) => {
@@ -72,38 +81,38 @@ function FormRender({ inputs, textButton = "Enviar", handleSubmit, type, size, w
                 onChange={handleInputChange}
               />
               : input.type === "password" ?
-              <InputPassword
-                placeholder={input.placeholder}
-                name={input.name}
-                color={input.color}
-                key={index}
-                width={input.width}
-                maxWidth={input.maxWidth}
-                required={input.required}
-                disabled={editing}
-                value={formValues[input.name]}
-                onChange={handleInputChange}
-              />
-              :
-              <InputFileUpload
-                key={index}
-                onChange={handleInputChange}
-                texto = {input.placeholder} 
-              /> 
+                <InputPassword
+                  placeholder={input.placeholder}
+                  name={input.name}
+                  color={input.color}
+                  key={index}
+                  width={input.width}
+                  maxWidth={input.maxWidth}
+                  required={input.required}
+                  disabled={editing}
+                  value={formValues[input.name]}
+                  onChange={handleInputChange}
+                />
+                :
+                <InputFileUpload
+                  key={index}
+                  onChange={handleInputChange}
+                  texto={input.placeholder}
+                />
           ))
         }
       </Entradas>
       {
-        !edition ? 
+        !edition ?
           <ButtonP texto={textButton} size={size} type={type} handleSubmit={handleFormSubmit} width={width} />
           :
-            editing ?
-              <ButtonP texto={"Editar"} size={size} type={type} handleSubmit={() => setEditing(false)} width={width} endIcon={<MdEditDocument />} />
+          editing ?
+            <ButtonP texto={"Editar"} size={size} type={type} handleSubmit={() => setEditing(false)} width={width} endIcon={<MdEditDocument />} />
             :
-              <>
+            <>
               <ButtonP texto={"Guardar"} size={size} type={type} handleSubmit={() => setEditing(true)} width={width} endIcon={<FaSave />} />
               <ButtonP texto={"Cancelar"} size={size} type={type} color='secondary' handleSubmit={() => setEditing(true)} width={width} endIcon={<MdCancel />} />
-              </>
+            </>
       }
 
     </FormEstilizado>

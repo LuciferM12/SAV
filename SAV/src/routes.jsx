@@ -5,6 +5,8 @@ import Login from "./pages/login";
 import SignUp from "./pages/SignUp";
 import Perfil from "./pages/Perfil";
 import Productos from "./pages/Productos";
+import ImageUpload from "./pages/ImageUpload";
+import AltaProducto from "./pages/AltaProducto";
 
 function AppRoutes() {
     return (
@@ -14,6 +16,8 @@ function AppRoutes() {
                     <Route index element={<Inicio />}></Route>
                     <Route path="profile" element={<Perfil />}/>
                     <Route path="productos" element={<Productos />} />
+                    <Route path="imagen" element={<ImageUpload />} />
+                    <Route path="altaproducto" element={<AltaProducto />} />
                 </Route>
                 <Route path="/login" element={<Login />}></Route>
                 <Route path="/register" element={<SignUp />}></Route>

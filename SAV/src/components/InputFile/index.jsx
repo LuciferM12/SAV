@@ -15,27 +15,38 @@ const VisuallyHiddenInput = styled('input')({
     width: 1,
 });
 
-export default function InputFileUpload({ texto, onChange, name, required, multiple = false }) {
+export default function InputFileUpload({ texto, onChange, name = 'image', required, multiple = false }) {
+    const [fileName, setFileName] = React.useState('');
+
+    const handleChange = (event) => {
+        if (event.target.files && event.target.files.length > 0) {
+            setFileName(event.target.files[0].name);
+            if (onChange) {
+                onChange(event);
+            }
+        }
+    };
+
     return (
-        <Button
-            component="label"
-            role={undefined}
-            variant="contained"
-            tabIndex={-1}
-            startIcon={<CloudUploadIcon />}
-        >
-            {texto}
-            <VisuallyHiddenInput
-                type="file"
-                name={name}
-                required={required}
-                onChange={(event) => {
-                    if (onChange) {
-                        onChange(event);
-                    }
-                }}
-                multiple={multiple}
-            />
-        </Button>
+        <div>
+            <Button
+                component="label"
+                role={undefined}
+                variant="contained"
+                tabIndex={-1}
+                startIcon={<CloudUploadIcon />}
+            >
+                {texto}
+                <VisuallyHiddenInput
+                    type="file"
+                    name={name}
+                    required={required}
+                    onChange={handleChange}
+                    multiple={multiple}
+                    accept='image/*'
+                />
+            </Button>
+            {fileName && <p style={{ marginTop: '8px' }}>Archivo seleccionado: {fileName}</p>}
+        </div>
     );
 }
