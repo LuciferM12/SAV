@@ -8,9 +8,7 @@ import { FRONTED_URL, PORT } from './config.js'
 const app = express()
 const upload = multer({ storage: multer.memoryStorage() })
 
-app.use(cors({
-    origin: FRONTED_URL
-}))
+app.use(cors())
 
 app.use(morgan('dev'))
 app.use(express.json())
