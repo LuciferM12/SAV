@@ -5,6 +5,7 @@ import ButtonP from '../Button'
 import styled from 'styled-components'
 import { MdEditDocument, MdCancel } from "react-icons/md";
 import { FaSave } from "react-icons/fa";
+import InputFileUpload from '../InputFile'
 
 const FormEstilizado = styled.form`
   display: flex;
@@ -55,7 +56,7 @@ function FormRender({ inputs, textButton = "Enviar", handleSubmit, type, size, w
       <Entradas align={align}>
         {
           inputs.map((input, index) => (
-            input.type != "password" ?
+            input.type != "password" && input.type != "file" ?
               <Input
                 placeholder={input.placeholder}
                 name={input.name}
@@ -70,7 +71,7 @@ function FormRender({ inputs, textButton = "Enviar", handleSubmit, type, size, w
                 value={formValues[input.name]}
                 onChange={handleInputChange}
               />
-              :
+              : input.type === "password" ?
               <InputPassword
                 placeholder={input.placeholder}
                 name={input.name}
@@ -83,6 +84,12 @@ function FormRender({ inputs, textButton = "Enviar", handleSubmit, type, size, w
                 value={formValues[input.name]}
                 onChange={handleInputChange}
               />
+              :
+              <InputFileUpload
+                key={index}
+                onChange={handleInputChange}
+                texto = {input.placeholder} 
+              /> 
           ))
         }
       </Entradas>
