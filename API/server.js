@@ -4,6 +4,7 @@ import multer from 'multer'
 import cors from 'cors'
 import { pool } from './db.js'
 import { FRONTED_URL, PORT } from './config.js'
+import { createUser, deleteUser, getUser, getUsers, updateUser } from './routes/usuarios/index.js'
 
 const app = express()
 const upload = multer({ storage: multer.memoryStorage() })
@@ -23,74 +24,12 @@ app.get("/ping", async (req, res) => {
     })
 })
 
-app.get("/usuarios", async (req, res) => {
-    const result = await pool.query('SELECT * FROM usuarios')
-    res.json(result.rows)
-})
+app.get("/usuarios", getUsers)
+app.post("/usuarios", createUser)
+app.put("/usuarios/:id", updateUser)
+app.delete("/usuarios/:id", deleteUser)
+app.get("/usuarios/:id", getUser)
 
-app.post("/usuarios", async (req, res) => {
-    const { body } = req
-    const { usuario, password, nombres, apellidos, edad, telefono } = body
-    const query = `INSERT INTO usuarios (nombres, apellidos, edad, telefono, usuario, password) 
-        VALUES ($1, $2, $3, $4, $5, $6) RETURNING *;`
-    const values = [nombres, apellidos, edad, telefono, usuario, password]
-    try {
-        const result = await pool.query(query, values)
-        res.json(result.rows[0])
-    } catch (error) {
-        res.status(500).json({ message: "Error en el servidor" })
-    }
-
-})
-
-app.put("/usuarios/:id", async (req, res) => {
-    const { id } = req.params;
-    const { usuario, password, nombres, apellidos, edad, telefono } = req.body;
-
-    const query = `UPDATE usuarios SET nombres = $1, apellidos = $2, edad = $3, telefono = $4, usuario = $5, password = $6 WHERE id_us = $7 RETURNING *; `;
-
-    const values = [nombres, apellidos, edad, telefono, usuario, password, id];
-
-    try {
-        const result = await pool.query(query, values);
-        if (result.rows.length === 0) {
-            return res.status(404).json({ message: "Usuario no encontrado" });
-        }
-        res.json(result.rows[0]);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Error en el servidor" });
-    }
-});
-
-app.delete("/usuarios/:id", async (req, res) => {
-    const { id } = req.params;
-
-    const query = `DELETE FROM usuarios WHERE id_us = $1 RETURNING *;`;
-
-    try {
-        const result = await pool.query(query, [id]);
-        if (result.rows.length === 0) {
-            return res.status(404).json({ message: "Usuario no encontrado" });
-        }
-        res.json({ message: "Usuario eliminado correctamente", usuario: result.rows[0] });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Error en el servidor" });
-    }
-});
-
-app.get("/usuarios/:id", async (req, res) => {
-    const { id } = req.params
-    const query = `SELECT * FROM usuarios WHERE id_us = $1`
-    const values = [id]
-    try {
-        const result = await pool.query(query, values)
-        res.json(result.rows[0])
-    } catch (error) {
-        res.status(500).json({ message: "Error en el servidor" })
-    }
-})
 
 app.post('/upload', upload.single('image'), async (req, res) => {
     try {
