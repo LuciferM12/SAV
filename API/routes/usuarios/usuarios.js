@@ -1,4 +1,5 @@
 import { pool } from '../../db.js'
+import { hash } from '../../utilities/encryption.js';
 
 export const getUsers = async (req, res) => {
     const result = await pool.query('SELECT * FROM usuarios')
@@ -10,14 +11,17 @@ export const getUsers = async (req, res) => {
 
 export const createUser = async (req, res) => {
     const { body } = req
-    const { usuario, password, nombres, apellidos, edad, telefono } = body
-    const query = `INSERT INTO usuarios (fnombre, snombre, apellidop, apellidom, usuario, password, rol) 
+    const { usuario, password, fnombre, snombre, apellidop, apellidom } = body
+    const query = `INSERT INTO 
+        usuarios (fnombre, snombre, apellidop, apellidom, usuario, password, rol) 
         VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *;`
-    const values = [nombres, apellidos, edad, telefono, usuario, password, 1]
+    const hashedPassword = await hash(password)
+    const values = [fnombre, snombre, apellidop, apellidom, usuario, hashedPassword, 7]
     try {
         const result = await pool.query(query, values)
         res.json(result.rows[0])
     } catch (error) {
+        console.log(error)
         res.status(500).json({ message: "Error en el servidor" })
     }
 }
