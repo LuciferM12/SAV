@@ -8,6 +8,7 @@ import { createUser, deleteUser, getUser, getUsers, updateUser } from './routes/
 import { createProduct, getProducts } from './routes/productos/productos.js'
 import { getCategories } from './routes/productos/categorias.js'
 import { login } from './routes/login.js'
+import { createRole } from './routes/configuracion/roles.js'
 
 const app = express()
 const upload = multer({ storage: multer.memoryStorage() })
@@ -44,6 +45,8 @@ app.get("/productos", getProducts);
 /***Categorias***/
 app.get("/categorias", getCategories)
 
+/***Roles***/
+app.post("/roles", createRole)
 
 /*app.post('/upload', upload.single('image'), async (req, res) => {
     try {
