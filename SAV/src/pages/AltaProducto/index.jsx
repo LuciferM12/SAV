@@ -59,22 +59,18 @@ function AltaProducto() {
             width: 700
         },
         {
-            placeholder: "Categoria",
-            color: "secondary",
-            id: "categoria",
-            type: "text",
             name: "categoria",
+            placeholder: "Seleccione una categoria",
+            type: "select",
+            width: 700,
+            maxWidth: "100%",
+            disabled: false,
             required: true,
-            width: 700
-        },
-        {
-            placeholder: "Tipo",
-            color: "secondary",
-            id: "tipo",
-            type: "text",
-            name: "tipo",
-            required: true,
-            width: 700
+            options: [
+                { value: 1, label: "Category 1" },
+                { value: 2, label: "Category 2" },
+                { value: 3, label: "Category 3" }
+            ]
         },
         {
             placeholder: "Subir Imagen",
@@ -85,6 +81,7 @@ function AltaProducto() {
             required: true,
             width: 700
         },
+        
 
     ]
 
