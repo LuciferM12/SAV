@@ -44,7 +44,6 @@ export default function InputSelect({ placeholder, width = 500, maxWidth = "100%
                     value={value}
                     onChange={onChange}
                     name={name}
-                    autoWidth
                     label={placeholder}
                 >
                     <MenuItem value="">
