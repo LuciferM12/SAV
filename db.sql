@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS usuarios (
   edad SMALLINT,
   telefono VARCHAR(15),
   usuario VARCHAR(20) NOT NULL,
-  password VARCHAR(30) NOT NULL,
+  password VARCHAR(255) NOT NULL,
   rol INTEGER NOT NULL
 );
 
@@ -30,6 +30,12 @@ CREATE TABLE IF NOT EXISTS productos (
   descripcion VARCHAR(500) NOT NULL,
   id_categoria INTEGER NOT NULL,
   id_imagen INTEGER NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS productosprincipales (
+  id_prin SERIAL NOT NULL PRIMARY KEY,
+  id_prod INTEGER NOT NULL,
+  estado BOOLEAN NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS categorias (
@@ -91,3 +97,4 @@ ALTER TABLE productos ADD CONSTRAINT productos_id_categoria_fk FOREIGN KEY (id_c
 ALTER TABLE productos ADD CONSTRAINT productos_id_imagen_fk FOREIGN KEY (id_imagen) REFERENCES imagenes (id);
 ALTER TABLE negocio ADD CONSTRAINT negocio_logo_fk FOREIGN KEY (logo) REFERENCES imagenes (id);
 ALTER TABLE negocio ADD CONSTRAINT negocio_imagenP_fk FOREIGN KEY (imagenP) REFERENCES imagenes (id);
+ALTER TABLE productosprincipales ADD CONSTRAINT productosprincipales_id_prod_fk FOREIGN KEY (id_prod) REFERENCES productos (id_prod);
