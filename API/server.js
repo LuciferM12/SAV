@@ -7,6 +7,7 @@ import { FRONTED_URL, PORT } from './config.js'
 import { createUser, deleteUser, getUser, getUsers, updateUser } from './routes/usuarios/usuarios.js'
 import { createProduct, getProducts } from './routes/productos/productos.js'
 import { getCategories } from './routes/productos/categorias.js'
+import { login } from './routes/login.js'
 
 const app = express()
 const upload = multer({ storage: multer.memoryStorage() })
@@ -26,7 +27,10 @@ app.get("/ping", async (req, res) => {
     })
 })
 
- /*** Usuarios***/
+/***Inicio de Sesion ***/
+app.post("/login", login)
+
+/***Usuarios***/
 app.get("/usuarios", getUsers)
 app.post("/usuarios", createUser)
 app.put("/usuarios/:id", updateUser)
