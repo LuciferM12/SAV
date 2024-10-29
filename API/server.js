@@ -7,8 +7,10 @@ import { FRONTED_URL, PORT } from './config.js'
 import { createUser, deleteUser, getUser, getUsers, updateUser } from './routes/usuarios/usuarios.js'
 import { createProduct, getProducts } from './routes/productos/productos.js'
 import { getCategories } from './routes/productos/categorias.js'
-import { login } from './routes/login.js'
+import { login } from './routes/sesiones/login.js'
 import { createRole } from './routes/configuracion/roles.js'
+import decode from './routes/sesiones/decode.js'
+import protectedRoute from './routes/sesiones/protected.js'
 
 const app = express()
 const upload = multer({ storage: multer.memoryStorage() })
@@ -29,6 +31,8 @@ app.get("/ping", async (req, res) => {
 })
 
 /***Inicio de Sesion ***/
+app.get("/decode", decode)
+app.get("/protected", protectedRoute)
 app.post("/login", login)
 
 /***Usuarios***/
