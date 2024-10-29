@@ -6,7 +6,7 @@ import { pool } from './db.js'
 import { FRONTED_URL, PORT } from './config.js'
 import { createUser, deleteUser, getUser, getUsers, updateUser } from './routes/usuarios/usuarios.js'
 import { createProduct, getProducts } from './routes/productos/productos.js'
-import { getCategories } from './routes/productos/categorias.js'
+import { getAllCategories, getCategories } from './routes/productos/categorias.js'
 import { login } from './routes/sesiones/login.js'
 import { createRole } from './routes/configuracion/roles.js'
 import decode from './routes/sesiones/decode.js'
@@ -49,7 +49,8 @@ app.post('/productos', upload.single('imagen'), createProduct)
 app.get("/productos", getProducts);
 
 /***Categorias***/
-app.get("/categorias", getCategories)
+app.get("/categorias", getAllCategories)
+app.get("/categorias/productos", getCategories)
 
 /***Roles***/
 app.post("/roles", createRole)

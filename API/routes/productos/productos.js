@@ -7,14 +7,14 @@ export const getProducts = async (req, res) => {
                 productos.nomprod, 
                 productos.precio, 
                 productos.descripcion, 
-                categorias.descripcion AS categoria 
-                images.data AS image_data, 
-                images.mimetype 
+                categorias.descripcion AS categoria, 
+                imagenes.data AS image_data, 
+                imagenes.mimetype 
             FROM productos 
-            INNER JOIN images 
-            ON productos.id_imagen = images.id
+            INNER JOIN imagenes 
+            ON productos.id_imagen = imagenes.id
             INNER JOIN categorias
-            ON categorias.id_cat = id_categoria
+            ON categorias.id_cat = productos.id_categoria
         `);
 
         // Transformar cada fila para incluir la imagen como base64
@@ -45,7 +45,7 @@ export const createProduct = async (req, res) => {
         await pool.query('BEGIN');
 
         // Insertar la imagen
-        let query = 'INSERT INTO images (data, mimetype) VALUES ($1, $2) RETURNING *';
+        let query = 'INSERT INTO imagenes (data, mimetype) VALUES ($1, $2) RETURNING *';
         let values = [imagen.buffer, imagen.mimetype];
         let result = await pool.query(query, values);
         const imagenId = result.rows[0].id;
