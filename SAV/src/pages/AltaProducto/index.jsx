@@ -67,8 +67,8 @@ function AltaProducto() {
             disabled: false,
             required: true,
             options: [
-                { value: 1, label: "Category 1" },
-                { value: 2, label: "Category 2" },
+                { value: 1, label: "Postres" },
+                { value: 2, label: "Carnes" },
                 { value: 3, label: "Category 3" }
             ]
         },

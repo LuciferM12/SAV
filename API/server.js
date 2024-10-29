@@ -15,7 +15,9 @@ import protectedRoute from './routes/sesiones/protected.js'
 const app = express()
 const upload = multer({ storage: multer.memoryStorage() })
 
-app.use(cors())
+app.use(cors({
+    origin: FRONTED_URL
+}))
 
 app.use(morgan('dev'))
 app.use(express.json())
