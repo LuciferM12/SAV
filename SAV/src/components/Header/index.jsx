@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import ButtonP from '../Button';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
+import { useSession } from '../../context/SessionContext';
 
 const HeaderEstilizado = styled.header`
     display: flex;
@@ -85,6 +86,7 @@ const LogoContainer = styled.div`
 `;
 
 const Header = () => {
+    const { user, logout } = useSession()
     const [semovio, setsemovio] = useState("false");
     const [menuOpen, setMenuOpen] = useState('false');
 
@@ -133,7 +135,17 @@ const Header = () => {
                 <li><Link to="/register">Nosotros</Link></li>
                 <li><Link to="/productos">Productos</Link></li>
                 <li><Link to="/altaproducto">Contáctanos</Link></li>
-                <ButtonP texto={"Inicia Sesión"} ruta={"/login"} size={"small"} color={"secondary"} />
+                {
+                    user &&
+                    <li><Link to="/profile">{user.fnombre}</Link></li>
+                }
+                {
+                    !user ?
+                        <ButtonP texto={"Inicia Sesión"} ruta={"/login"} size={"small"} color={"primary"} />
+                        :
+                        <ButtonP texto={"Cerrar Sesión"} handleSubmit={logout} size={'small'} color={"secondary"}/>
+                }
+
             </OpcionesEstilizadas>
         </HeaderEstilizado>
     );
