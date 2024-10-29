@@ -1,9 +1,15 @@
+import { CookiesProvider } from "react-cookie"
 import AppRoutes from "./routes"
+import { SessionProvider } from "./context/SessionContext"
 
 function App() {
   return (
     <>
-      <AppRoutes />
+      <CookiesProvider>
+        <SessionProvider>
+          <AppRoutes />
+        </SessionProvider>
+      </CookiesProvider>
     </>
   )
 }
