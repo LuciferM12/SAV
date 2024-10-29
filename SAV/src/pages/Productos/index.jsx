@@ -23,15 +23,16 @@ const Contenedor = styled.div`
 const URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000"
 
 function Productos() {
-    const [value, setValue] = useState(1);
+    const [value, setValue] = useState(0);
     const [categorias, setCategorias] = useState([])
     const [productos, setProductos] = useState([]) 
 
     useEffect(() => {
         const fetchCategorias = async () => {
             try {
-                const response = await axios.get(`${URL}/categorias`)
+                const response = await axios.get(`${URL}/categorias/productos`)
                 setCategorias(response.data)
+                console.log(categorias)
             }catch(error){
                 console.log(error)
             }

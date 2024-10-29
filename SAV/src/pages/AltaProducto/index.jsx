@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import styled from 'styled-components'
 import Logo from '/AM_Logo.png';
 import FormRender from '../../components/FormRender'
@@ -30,6 +31,24 @@ const Divisor = styled.div`
 const URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000"
 
 function AltaProducto() {
+    const [categorias, setCategorias] = useState([])
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const response = await axios.get(`${URL}/categorias`); // Usando axios para obtener categorías
+                const result = response.data;
+                const categoryOptions = result.map(cat => ({
+                    value: cat.id_cat,    // Asumimos que el campo `id` es el identificador
+                    label: cat.descripcion // Asumimos que `nombre` es el campo que quieres mostrar
+                }));
+                setCategorias(categoryOptions);
+            } catch (error) {
+                console.error('Error fetching categories:', error);
+            }
+        };
+
+        fetchCategories();
+    }, []);
     const inputs = [
         {
             placeholder: "Producto",
@@ -66,11 +85,7 @@ function AltaProducto() {
             maxWidth: "100%",
             disabled: false,
             required: true,
-            options: [
-                { value: 1, label: "Postres" },
-                { value: 2, label: "Carnes" },
-                { value: 3, label: "Category 3" }
-            ]
+            options: categorias
         },
         {
             placeholder: "Subir Imagen",
@@ -81,7 +96,7 @@ function AltaProducto() {
             required: true,
             width: 700
         },
-        
+
 
     ]
 

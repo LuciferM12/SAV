@@ -84,7 +84,7 @@ function Card({ nombre, descripcion, imagen, precio }) {
             </CardImagen>
             <CajaPrecio>
                 <Precio>
-                    {`$ ${precio.toFixed(2)}`}
+                    {`$ ${precio}`}
                 </Precio>
             </CajaPrecio>
             <h3>{nombre}</h3>
