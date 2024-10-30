@@ -3,6 +3,7 @@ import axios from 'axios'
 import styled from 'styled-components'
 import Logo from '/AM_Logo.png';
 import FormRender from '../../components/FormRender'
+import Authorizer from '../../components/Authorizer';
 import { Link } from 'react-router-dom';
 
 const Registrar = styled.main`
@@ -139,7 +140,7 @@ function AltaProducto() {
     };
 
     return (
-        <>
+        <Authorizer allowedRoles={[7]}>
             <Registrar>
                 <Divisor >
                     <img src={Logo} alt="logo" />
@@ -147,7 +148,7 @@ function AltaProducto() {
                     <FormRender inputs={inputs} handleSubmit={handleSubmit} align='flex-start' width={200} />
                 </Divisor>
             </Registrar>
-        </>
+        </Authorizer>
     )
 }
 
