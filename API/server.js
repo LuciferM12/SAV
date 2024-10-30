@@ -5,8 +5,8 @@ import cors from 'cors'
 import { pool } from './db.js'
 import { FRONTED_URL, PORT } from './config.js'
 import { createUser, deleteUser, getUser, getUsers, updateUser } from './routes/usuarios/usuarios.js'
-import { createProduct, getProducts } from './routes/productos/productos.js'
-import { getAllCategories, getCategories } from './routes/productos/categorias.js'
+import { createProduct, getMainProducts, getProducts } from './routes/productos/productos.js'
+import { getAllCategories, getCategoriesMainProducts, getCategoriesProducts } from './routes/productos/categorias.js'
 import { login } from './routes/sesiones/login.js'
 import { createRole } from './routes/configuracion/roles.js'
 import decode from './routes/sesiones/decode.js'
@@ -47,10 +47,12 @@ app.get("/usuarios/:id", getUser)
 /***Productos ***/
 app.post('/productos', upload.single('imagen'), createProduct)
 app.get("/productos", getProducts);
+app.get("/pproductos", getMainProducts)
 
 /***Categorias***/
 app.get("/categorias", getAllCategories)
-app.get("/categorias/productos", getCategories)
+app.get("/categorias/productos", getCategoriesProducts)
+app.get("/categorias/principalesproductos", getCategoriesMainProducts)
 
 /***Roles***/
 app.post("/roles", createRole)

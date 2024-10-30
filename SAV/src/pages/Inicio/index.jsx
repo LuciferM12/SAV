@@ -16,7 +16,7 @@ const Inicio = () => {
     useEffect(() => {
         const fetchCategorias = async () => {
             try {
-                const response = await axios.get(`${URL}/tipos`)
+                const response = await axios.get(`${URL}/categorias/principalesproductos`)
                 setCategorias(response.data)
             } catch (error) {
                 console.log(error)
@@ -24,7 +24,7 @@ const Inicio = () => {
         }
         const fetchProductos = async () => {
             try {
-                const response = await axios.get(`${URL}/productos`);
+                const response = await axios.get(`${URL}/pproductos`);
                 setProductos(response.data);
             } catch (error) {
                 console.error('Error al obtener productos:', error);
@@ -49,7 +49,6 @@ const Inicio = () => {
                 titulo={"Principales Productos"}
                 value={value}
                 setValue={setValue}
-                caso={2}
             />
             <Opinion />
         </>

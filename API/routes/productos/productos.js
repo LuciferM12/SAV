@@ -32,6 +32,39 @@ export const getProducts = async (req, res) => {
     }
 }
 
+export const getMainProducts = async (req, res) => {
+    try {
+        const result = await pool.query(`
+            SELECT 
+                productos.nomprod, 
+                productos.precio, 
+                productos.descripcion, 
+                categorias.descripcion AS categoria, 
+                imagenes.data AS image_data, 
+                imagenes.mimetype 
+            FROM productos 
+            INNER JOIN imagenes 
+            ON productos.id_imagen = imagenes.id
+            INNER JOIN categorias
+            ON categorias.id_cat = productos.id_categoria
+            INNER JOIN productosprincipales 
+            ON productos.id_prod = productosprincipales.id_prod
+        `);
+
+        // Transformar cada fila para incluir la imagen como base64
+        const productosConImagenes = result.rows.map(producto => {
+            return {
+                ...producto,
+                image: `data:${producto.mimetype};base64,${producto.image_data.toString('base64')}`
+            };
+        });
+        res.json(productosConImagenes);
+    } catch (error) {
+        console.error("Error al obtener productos:", error);
+        res.status(500).json({ message: "Error al obtener productos" });
+    }
+}
+
 export const createProduct = async (req, res) => {
     const { producto, precio, description, categoria } = req.body;
     const imagen = req.file;
