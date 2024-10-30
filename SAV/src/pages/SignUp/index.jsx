@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import GlobalStyles from '../../components/GlobalStyles'
 import Logo from '/AM_Logo.png';
 import FormRender from '../../components/FormRender'
+import { useNavigate } from 'react-router-dom'
+import { useSession } from '../../context/SessionContext'
 import { Link } from 'react-router-dom';
 
 const Registrar = styled.main`
@@ -12,6 +14,9 @@ const Registrar = styled.main`
     display: flex;
     align-items: center;
     justify-content: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    box-sizing: border-box;
 `
 
 const Divisor = styled.div`
@@ -21,14 +26,33 @@ const Divisor = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 50px;
+    gap: 20px;
     color: white;
     img {
         width: 20%;
     }
 `
+const ContenedorLink = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    a {
+        font-weight: 700;
+    }
+`
+
 
 function SignUp() {
+    const { user, loading } = useSession()
+    const navigate = useNavigate()
+    useEffect(() => {
+        if (!loading && user) {
+            navigate('/')
+        }
+    }, [loading])
+
     const inputs = [
         {
             placeholder: "Usuario",
@@ -94,6 +118,10 @@ function SignUp() {
                     <img src={Logo} alt="logo" />
                     <h1>Registrate</h1>
                     <FormRender inputs={inputs} handleSubmit={handleSubmit} align='center' width={200} />
+                    <ContenedorLink>
+                        <p>¿Ya tienes una cuenta?</p>
+                        <Link to={'/login'}>Inicia Sesión</Link>
+                    </ContenedorLink>
                 </Divisor>
             </Registrar>
         </>

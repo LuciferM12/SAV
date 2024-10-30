@@ -13,6 +13,9 @@ const Registrar = styled.main`
     display: flex;
     align-items: center;
     justify-content: center;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    box-sizing: border-box;
 `
 
 const Divisor = styled.div`

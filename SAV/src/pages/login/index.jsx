@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { useCookies } from 'react-cookie'
 import { useNavigate } from 'react-router-dom'
+import { useSession } from '../../context/SessionContext'
 import axios from 'axios'
 import GlobalStyles from '../../components/GlobalStyles'
 import Logo from '/AM_Logo.png';
 import FormRender from '../../components/FormRender'
+import { Link } from 'react-router-dom'
 
 const InicioSesionEstilizado = styled.main`
     width: 100%;
@@ -29,11 +31,27 @@ const Divisor = styled.div`
     img {
         width: 20%;
     }
+
     @media (max-width: 1020px) {
         width: 90%;
         img {
             width: 50%;
         }
+    }
+
+    @media (max-width: 480px) {
+        width: 100%;
+    }
+`
+
+const ContenedorLink = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    a {
+        font-weight: 700;
     }
 `
 
@@ -78,6 +96,14 @@ const URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000"
 function Login() {
     const [cookies, setCookie] = useCookies(['session_token'])
     const navigate = useNavigate()
+    const { user, loading } = useSession()
+
+    useEffect(() => {
+        if (!loading && user) {
+            navigate('/')
+        }
+    }, [loading])
+
     const inputs = [
         {
             placeholder: "Usuario",
@@ -116,7 +142,12 @@ function Login() {
                 <Divisor >
                     <img src={Logo} alt="logo" />
                     <h1>Inicie Sesión</h1>
-                    <FormRender inputs={inputs} handleSubmit={handleSubmit} size={"large"} />
+                    <FormRender inputs={inputs} handleSubmit={handleSubmit} width={200} />
+                    <ContenedorLink>
+                        <p>¿Aún no tienes una cuenta?</p>
+                        <Link to={'/register'}>Registrate</Link>
+                    </ContenedorLink>
+
                 </Divisor>
                 <ImagenDivisor />
             </InicioSesionEstilizado>
