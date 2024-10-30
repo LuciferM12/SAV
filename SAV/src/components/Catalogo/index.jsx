@@ -90,7 +90,7 @@ function Catalogo({ productos, categorias, titulo, value, setValue }) {
             </div>
             <ProductosEstilizados>
                 {filteredProducts.map((product, index) => (
-                    <Card key={index} nombre={product.nombre_producto} precio={product.precio} imagen={product.image} descripcion={product.descripcion} />
+                    <Card key={index} nombre={product.nomprod} precio={product.precio} imagen={product.image} descripcion={product.descripcion} />
                 ))}
             </ProductosEstilizados>
 

@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 const CardEstilizada = styled.div`
-    width: 32%;
+    width: 30%;
     height: 500px;
     background-color: #ff7043;
     display: flex;
