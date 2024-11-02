@@ -13,7 +13,7 @@ const HeaderEstilizado = styled.header`
     justify-content: space-between;
     width: 100%;
     height: 80px;
-    background-color: ${({ semovio }) => (semovio === "true" ? '#141414' : 'transparent')};
+    background-color: ${props => props.$semovio === "true" ? '#141414' : 'transparent'};
     color: white;
     padding: 0px 30px;
     box-sizing: border-box;
@@ -22,9 +22,9 @@ const HeaderEstilizado = styled.header`
     transition: background-color 0.3s ease;
     z-index: 1000;
     
-    box-shadow: ${({ semovio }) => (semovio === "true" && '0px 10px 5px -8px rgba(0,0,0,0.75)')};  
-    -webkit-box-shadow: ${({ semovio }) => (semovio === "true" && '0px 10px 5px -8px rgba(0,0,0,0.75)')}; 
-    -moz-box-shadow:${({ semovio }) => (semovio === "true" && '0px 10px 5px -8px rgba(0,0,0,0.75)')}; 
+    box-shadow: ${props => props.$semovio === "true" && '0px 10px 5px -8px rgba(0,0,0,0.75)'};  
+    -webkit-box-shadow: ${props => props.$semovio === "true" && '0px 10px 5px -8px rgba(0,0,0,0.75)'}; 
+    -moz-box-shadow:${props => props.$semovio === "true" && '0px 10px 5px -8px rgba(0,0,0,0.75)'}; 
 
     @media (max-width: 768px) {
         padding: 10px 20px;
@@ -49,7 +49,7 @@ const OpcionesEstilizadas = styled.ul`
     }
 
     @media (max-width: 768px) {
-        display: ${({ isopen }) => (isopen === 'true' ? 'flex' : 'none')};
+        display: ${props => props.$isopen === 'true' ? 'flex' : 'none'};
         flex-direction: column;
         gap: 20px;
         position: absolute;
@@ -116,7 +116,7 @@ const Header = () => {
     }, []);
 
     return (
-        <HeaderEstilizado semovio={semovio}>
+        <HeaderEstilizado $semovio={semovio}>
             {/* Botón de Menú para pantallas pequeñas */}
             <MenuButton onClick={toggleMenu}>
                 {menuOpen === 'true' ? <CloseIcon fontSize="large" /> : <MenuIcon fontSize="large" />}
@@ -130,7 +130,7 @@ const Header = () => {
             </LogoContainer>
 
             {/* Opciones del menú */}
-            <OpcionesEstilizadas isopen={menuOpen}>
+            <OpcionesEstilizadas $isopen={menuOpen}>
                 <li><Link to="/">Inicio</Link></li>
                 <li><Link to="/register">Nosotros</Link></li>
                 <li><Link to="/productos">Productos</Link></li>
@@ -143,7 +143,7 @@ const Header = () => {
                     !user ?
                         <ButtonP texto={"Inicia Sesión"} ruta={"/login"} size={"small"} color={"primary"} />
                         :
-                        <ButtonP texto={"Cerrar Sesión"} handleSubmit={logout} size={'small'} color={"secondary"}/>
+                        <ButtonP texto={"Cerrar Sesión"} handleSubmit={logout} size={'small'} color={"secondary"} />
                 }
 
             </OpcionesEstilizadas>
