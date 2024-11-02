@@ -60,7 +60,7 @@ function Banner({ height = '90vh', image, tipo, titulo, descripcion, secundario 
                                 <h2>{tipo}</h2>
                                 <h1>{titulo}</h1>
                                 <p>{descripcion}</p>
-                                <ButtonP texto={"menú"} size={"large"} ruta={"/menu"} />
+                                <ButtonP texto={"Productos"} size={"large"} ruta={"/productos"} />
                             </>
                     }
 
