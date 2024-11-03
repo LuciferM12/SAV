@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
-import Input from '../Input'
-import InputPassword from '../InputPassword'
+import Input from '../Inputs/Input'
+import InputPassword from '../Inputs/InputPassword'
+import InputFileUpload from '../Inputs/InputFile'
+import InputSelect from '../Inputs/InputSelect'
 import ButtonP from '../Button'
 import styled from 'styled-components'
 import { MdEditDocument, MdCancel } from "react-icons/md";
 import { FaSave } from "react-icons/fa";
-import InputFileUpload from '../InputFile'
-import InputSelect from '../InputSelect'
+
 
 const FormEstilizado = styled.form`
   display: flex;
