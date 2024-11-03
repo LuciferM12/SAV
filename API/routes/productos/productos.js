@@ -68,9 +68,8 @@ export const getMainProducts = async (req, res) => {
 export const createProduct = async (req, res) => {
     const { producto, precio, description, categoria } = req.body;
     const imagen = req.file;
-
-    if (!imagen) {
-        return res.status(400).json({ message: 'Image not provided' });
+    if (!producto || !precio || !description || !categoria || !imagen) {
+        return res.status(400).json({ message: 'Debe llenar todos los campos' })
     }
 
     try {
