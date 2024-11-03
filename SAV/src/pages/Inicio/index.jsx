@@ -5,6 +5,7 @@ import Historia from "../../components/Historia"
 import Productos from "../../components/Catalogo"
 import Fondo from '../../assets/images/POSTRES.JPG'
 import Opinion from "../../components/Opinion"
+import Reserva from "../../components/SeccionReserva"
 
 const URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000"
 
@@ -50,6 +51,7 @@ const Inicio = () => {
                 value={value}
                 setValue={setValue}
             />
+            <Reserva />
             <Opinion />
         </>
     )
