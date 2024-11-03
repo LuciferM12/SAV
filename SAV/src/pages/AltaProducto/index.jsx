@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
-import styled from 'styled-components'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import styled from 'styled-components';
 import Logo from '/AM_Logo.png';
-import FormRender from '../../components/FormRender'
+import FormRender from '../../components/FormRender';
 import Authorizer from '../../components/Authorizer';
-import { Link } from 'react-router-dom';
+import { Toaster, toast } from 'sonner'
 
 const Registrar = styled.main`
     width: 100%;
@@ -16,7 +16,7 @@ const Registrar = styled.main`
     padding-top: 100px;
     padding-bottom: 100px;
     box-sizing: border-box;
-`
+`;
 
 const Divisor = styled.div`
     width: 90%;
@@ -30,20 +30,21 @@ const Divisor = styled.div`
     img {
         width: 20%;
     }
-`
+`;
 
-const URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000"
+const URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000";
 
 function AltaProducto() {
-    const [categorias, setCategorias] = useState([])
+    const [categorias, setCategorias] = useState([]);
+
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await axios.get(`${URL}/categorias`); // Usando axios para obtener categorías
+                const response = await axios.get(`${URL}/categorias`);
                 const result = response.data;
                 const categoryOptions = result.map(cat => ({
-                    value: cat.id_cat,    // Asumimos que el campo `id` es el identificador
-                    label: cat.descripcion // Asumimos que `nombre` es el campo que quieres mostrar
+                    value: cat.id_cat,
+                    label: cat.descripcion
                 }));
                 setCategorias(categoryOptions);
             } catch (error) {
@@ -53,6 +54,7 @@ function AltaProducto() {
 
         fetchCategories();
     }, []);
+
     const inputs = [
         {
             placeholder: "Producto",
@@ -100,25 +102,20 @@ function AltaProducto() {
             required: true,
             width: 700
         },
-
-
-    ]
+    ];
 
     const handleSubmit = async (formValues) => {
         const formData = new FormData();
 
-        // Añadir los campos al FormData
         formData.append('producto', formValues.producto);
         formData.append('precio', formValues.precio);
         formData.append('description', formValues.description);
         formData.append('categoria', formValues.categoria);
-        formData.append('tipo', formValues.tipo);
 
-        // Verificar que existe la imagen antes de intentar añadirla
         if (formValues.image instanceof File) {
             formData.append('imagen', formValues.image);
         } else {
-            alert("Por favor seleccione una imagen");
+            toast.error('Por favor seleccione una imagen')
             return;
         }
 
@@ -130,15 +127,12 @@ function AltaProducto() {
 
             const result = await response.json();
             if (response.ok) {
-                alert('Producto registrado con éxito');
-                // Opcional: limpiar el formulario o redirigir
+                toast.success('Producto registrado con éxito')
             } else {
-                console.error(result.message);
-                alert('Error al registrar producto: ' + result.message);
+                toast.error(`Error al registrar producto: ${result.message}`)
             }
         } catch (error) {
-            console.error('Error al enviar el formulario:', error);
-            alert('Ocurrió un error al enviar el formulario.');
+            toast.error('Ocurrió un error al enviar el formulario.')
         }
     };
 
@@ -151,8 +145,9 @@ function AltaProducto() {
                     <FormRender inputs={inputs} handleSubmit={handleSubmit} align='flex-start' width={200} />
                 </Divisor>
             </Registrar>
+            <Toaster theme='dark' position='bottom-right' richColors />
         </Authorizer>
     )
 }
 
-export default AltaProducto
+export default AltaProducto;
