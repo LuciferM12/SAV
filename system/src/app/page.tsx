@@ -1,15 +1,29 @@
-import ButtonRender from "@/components/buttons/Button";
-import { DiProlog } from "react-icons/di";
+'use client'
+import Banner from "@/components/banners/Banner";
+import { useEffect, useState } from "react";
+import { getImagenBanner } from "./actions";
 
 export default function Index() {
+
+  const [image, setImage] = useState<string | null>(null);
+
+    useEffect(() => {
+        const fetchLogo = async () => {
+            const logo = await getImagenBanner()
+            setImage(logo)
+        }
+        fetchLogo()
+    })
+
   return (
-    <div className="pt-20">
-      <ButtonRender
-        variant="default"
-        text="Iniciar Sesion"
-        icon={<DiProlog />}
-        loader
+    <>
+      <Banner 
+        tipo="Restaurante" 
+        titulo="Antojitos Mary"
+        descripcion="Uno de los restaurantes más prestigiosos de San Luis Potosí. Con precios accesibles y uno de los mejores servicios."
+        secundario={false}
+        image= {image}
       />
-    </div>
+    </>
   )
 }
