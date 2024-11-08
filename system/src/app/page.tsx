@@ -3,11 +3,13 @@ import { DiProlog } from "react-icons/di";
 
 export default function Index() {
   return (
-    <ButtonRender 
-      variant="default" 
-      text="Iniciar Sesion"
-      icon={<DiProlog />}
-      loader
-    />
+    <div className="pt-20">
+      <ButtonRender
+        variant="default"
+        text="Iniciar Sesion"
+        icon={<DiProlog />}
+        loader
+      />
+    </div>
   )
 }

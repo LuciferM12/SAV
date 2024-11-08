@@ -16,7 +16,7 @@ const app = express()
 const upload = multer({ storage: multer.memoryStorage() })
 
 app.use(cors({
-    origin: FRONTED_URL
+    
 }))
 
 app.use(morgan('dev'))
@@ -57,11 +57,11 @@ app.get("/categorias/principalesproductos", getCategoriesMainProducts)
 /***Roles***/
 app.post("/roles", createRole)
 
-/*app.post('/upload', upload.single('image'), async (req, res) => {
+app.post('/upload', upload.single('image'), async (req, res) => {
     try {
         const { buffer, mimetype } = req.file;  // Accede a la imagen y su tipo MIME
 
-        const query = 'INSERT INTO images (data, mimetype) VALUES ($1, $2) RETURNING *';
+        const query = 'INSERT INTO imagenes (data, mimetype) VALUES ($1, $2) RETURNING *';
         const values = [buffer, mimetype];  // Almacena la imagen como un buffer
         const result = await pool.query(query, values);
 
@@ -76,7 +76,7 @@ app.get('/image/:id', async (req, res) => {
     const { id } = req.params;
 
     try {
-        const query = 'SELECT data, mimetype FROM images WHERE id = $1';
+        const query = 'SELECT data, mimetype FROM imagenes WHERE id = $1';
         const result = await pool.query(query, [id]);
 
         if (result.rows.length > 0) {
@@ -91,4 +91,23 @@ app.get('/image/:id', async (req, res) => {
         res.status(500).send('Error fetching image');
     }
 });
-*/
+
+app.get('/logo', async (req, res) => {
+
+    try {
+       
+        const query = 'SELECT data, mimetype FROM imagenes WHERE id = $1';
+        const result = await pool.query(query, [18]);
+
+        if (result.rows.length > 0) {
+            const image = result.rows[0];
+            res.set('Content-Type', image.mimetype);  // Establece el tipo MIME correcto
+            res.send(image.data);  // Envía la imagen en formato binario
+        } else {
+            res.status(404).send('Image not found');
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error fetching image');
+    }
+});
