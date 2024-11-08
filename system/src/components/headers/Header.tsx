@@ -23,7 +23,7 @@ const Header = () => {
 
     return (
         <nav className='relative'>
-            <div className={`dark:bg-[#08080a] flex flex-col w-screen fixed top-0 z-50 shadow-custom transition-all duration-300 ease-in-out ${isMenuOpen ? 'h-80' : 'h-20'}`}>
+            <div className={`dark:bg-[#08080a] bg-[#C0C0C0] flex flex-col w-screen fixed top-0 z-50 shadow-custom transition-all duration-300 ease-in-out ${isMenuOpen ? 'h-80' : 'h-20'}`}>
                 <div className='flex items-center justify-between p-5 h-20'>
                     <div className='flex items-center justify-center'>
                         {image && <img className='w-[90px]' src={image} alt="Logo" />}

@@ -2,6 +2,7 @@
 import Banner from "@/components/banners/Banner";
 import { useEffect, useState } from "react";
 import { getImagenBanner } from "./actions";
+import Historia from "@/components/sections/Historia";
 
 export default function Index() {
 
@@ -24,6 +25,7 @@ export default function Index() {
         secundario={false}
         image= {image}
       />
+      <Historia />
     </>
   )
 }
