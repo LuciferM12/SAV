@@ -2,8 +2,9 @@
 import Banner from "@/components/banners/Banner";
 import { useEffect, useState } from "react";
 import { getCategories, getImagenBanner, getProducts } from "./actions";
-import Historia from "@/components/sections/Historia";
+import Historia from "@/components/sections/historia/Historia";
 import Catalogo from "@/components/catalogue/Catalogo";
+import Reservaciones from "@/components/sections/reservaciones/Reservaciones";
 
 export default function Index() {
 
@@ -43,6 +44,7 @@ export default function Index() {
       />
       <Historia />
       <Catalogo categories={categorias} productos={productos}/>
+      <Reservaciones />
     </>
   )
 }
