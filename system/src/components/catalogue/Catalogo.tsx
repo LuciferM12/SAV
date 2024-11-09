@@ -41,11 +41,11 @@ const Catalogo = ({ categories, productos }: CatalogoProps) => {
                 <TabsList className='flex bg-transparent gap-2'>
                     {
                         categories.map((categoria, index) => (
-                            <TabsTrigger className='dark:bg-gray-800  bg-slate-300 text-black dark:data-[state=active]:bg-slate-50 dark:data-[state=active]:text-black data-[state=active]:bg-slate-900 data-[state=active]:text-white ' key={index} value={categoria.categoria}>{categoria.categoria}</TabsTrigger>
+                            <TabsTrigger className='dark:bg-gray-800 dark:text-white bg-slate-300 text-black dark:data-[state=active]:bg-slate-50 dark:data-[state=active]:text-black data-[state=active]:bg-slate-900 data-[state=active]:text-white ' key={index} value={categoria.categoria}>{categoria.categoria}</TabsTrigger>
                         ))
                     }
                 </TabsList>
-                <TabsContent value={selectedCategory}>
+                <TabsContent value={selectedCategory} className='flex flex-wrap gap-3'>
                     {filteredProducts.map((producto, index) => (
                         <Card
                             key={index}
