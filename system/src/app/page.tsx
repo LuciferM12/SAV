@@ -1,20 +1,36 @@
 'use client'
 import Banner from "@/components/banners/Banner";
 import { useEffect, useState } from "react";
-import { getImagenBanner } from "./actions";
+import { getCategories, getImagenBanner, getProducts } from "./actions";
 import Historia from "@/components/sections/Historia";
+import Catalogo from "@/components/catalogue/Catalogo";
 
 export default function Index() {
 
   const [image, setImage] = useState<string | null>(null);
+  const [categorias, setCategorias] = useState([])
+  const [productos, setProductos] = useState([])
 
     useEffect(() => {
         const fetchLogo = async () => {
             const logo = await getImagenBanner()
             setImage(logo)
         }
+
+        const fetchCategories = async () => {
+          const categorias = await getCategories()
+          setCategorias(categorias)
+        }
+
+        const fetchProducts = async () => {
+          const productos = await getProducts()
+          setProductos(productos)
+        }
+
         fetchLogo()
-    })
+        fetchCategories()
+        fetchProducts()
+    }, [])
 
   return (
     <>
@@ -26,6 +42,7 @@ export default function Index() {
         image= {image}
       />
       <Historia />
+      <Catalogo categories={categorias} productos={productos}/>
     </>
   )
 }
