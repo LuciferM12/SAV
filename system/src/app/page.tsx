@@ -5,6 +5,7 @@ import { getCategories, getImagenBanner, getProducts } from "./actions";
 import Historia from "@/components/sections/historia/Historia";
 import Catalogo from "@/components/catalogue/Catalogo";
 import Reservaciones from "@/components/sections/reservaciones/Reservaciones";
+import Opiniones from "@/components/sections/opiniones/Opiniones";
 
 export default function Index() {
 
@@ -45,6 +46,7 @@ export default function Index() {
       <Historia />
       <Catalogo categories={categorias} productos={productos}/>
       <Reservaciones />
+      <Opiniones />
     </>
   )
 }
