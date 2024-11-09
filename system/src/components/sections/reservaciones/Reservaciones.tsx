@@ -1,6 +1,6 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import { getHistoryImage } from './actions';
+import { getReservationImage } from './actions';
 import ButtonRender from '@/components/buttons/Button';
 
 
@@ -9,11 +9,11 @@ const Reservaciones = () => {
     const [image, setImage] = useState<string | null>(null);
 
     useEffect(() => {
-        const fetchLogo = async () => {
-            const logo = await getHistoryImage()
-            setImage(logo)
+        const fetchImageReservation = async () => {
+            const imageR = await getReservationImage()
+            setImage(imageR)
         }
-        fetchLogo()
+        fetchImageReservation()
     })
 
     return (
