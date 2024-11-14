@@ -10,10 +10,11 @@ interface ButtonProps {
     link?: string
     icon?: ReactNode
     loader?: boolean
+    className?: string
     onClick?: () => void
 }
 
-const ButtonRender = ({ text, variant, link, icon, loader, onClick }: ButtonProps) => {
+const ButtonRender = ({ text, variant, link, icon, loader, className, onClick }: ButtonProps) => {
     if (link) {
         return (
             <Button asChild variant={variant}>
@@ -23,7 +24,7 @@ const ButtonRender = ({ text, variant, link, icon, loader, onClick }: ButtonProp
     }
 
     return (
-        <Button variant={variant} disabled={loader} onClick={onClick}>
+        <Button variant={variant} className={className} disabled={loader} onClick={onClick}>
             {loader && <Loader2 className="animate-spin"/>}
             {icon && icon}
             {text}
