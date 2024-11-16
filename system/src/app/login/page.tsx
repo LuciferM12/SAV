@@ -8,11 +8,13 @@ import ButtonRender from '@/components/buttons/Button';
 import InputPassword from '@/components/inputs/InputPassword';
 import { Toaster, toast } from 'sonner'
 import { useRouter } from 'next/navigation';
+import LoadingScreen from '@/components/loading/loading';
 
 const Login = () => {
     const router = useRouter()
     const [image, setImage] = useState<string | null>(null);
     const [logo, setLogo] = useState<string | null>(null);
+    const [isLoading, setIsLoading] = useState<boolean>(true)
 
     const handleSubmit = async (formData: FormData) => {
         try {
@@ -22,7 +24,7 @@ const Login = () => {
             toast.error('Contraseña o correo equivocados')
         }
     }
-    
+
     const inputs: InputProps = {
         placeholder: 'Ingrese su correo electrónico',
         type: "text",
@@ -45,19 +47,30 @@ const Login = () => {
         disabled: false,
     }
 
-    useEffect(() => {
-        const fetchImagen = async () => {
+    const fetchData = async () => {
+        try {
+            setIsLoading(true)
             const imagen = await getImagenLogin()
             setImage(imagen)
-        }
-
-        const fetchLogo = async () => {
             const logo = await getLogo()
             setLogo(logo)
+        } catch (error) {
+            toast.error('Error de carga')
+        } finally {
+            setIsLoading(false)
         }
-        fetchImagen()
-        fetchLogo()
+
+    }
+
+    useEffect(() => {
+        fetchData()
     }, [])
+
+    if (isLoading) {
+        return (
+            <LoadingScreen />
+        )
+    }
 
     return (
         <div className='w-screen h-screen flex'>
