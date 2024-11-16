@@ -15,12 +15,17 @@ const Login = () => {
     const [image, setImage] = useState<string | null>(null);
     const [logo, setLogo] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true)
+    const [isbusy, setIsBusy] = useState<boolean>(false)
 
-    const handleSubmit = async (formData: FormData) => {
-        try {
-            await login(formData)
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault()
+        setIsBusy(true)
+        const formData = new FormData(event.currentTarget)
+        const result = await login(formData)
+        setIsBusy(false)
+        if (result.success) {
             router.push('/dashboard')
-        } catch (error) {
+        } else {
             toast.error('Contraseña o correo equivocados')
         }
     }
@@ -78,7 +83,7 @@ const Login = () => {
                 {logo && <img className='w-[100px] mb-4' src={logo} alt="Logo" />}
                 <h1 className='text-3xl font-bold mb-1'>¡Bienvenido de vuelta!</h1>
                 <p>Ingresa para tener acceso a todos nuestros servicios.</p>
-                <form className='flex flex-col mt-5 gap-2' action={handleSubmit}>
+                <form className='flex flex-col mt-5 gap-2' onSubmit={handleSubmit}>
                     <Input {...inputs} />
                     <InputPassword {...inputP} />
                     <ButtonRender
@@ -86,6 +91,7 @@ const Login = () => {
                         variant="default"
                         onClick={() => null}
                         className='w-3/4 mt-6 font-bold'
+                        loader={isbusy}
                     />
                 </form>
             </div>

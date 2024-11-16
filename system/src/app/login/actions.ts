@@ -12,24 +12,28 @@ export const getImagenLogin = async () => {
 };
 
 export const login = async (formData: FormData) => {
-
-    const cookieStore = cookies();
     const credenciales = {
         username: formData.get('email'),
         password: formData.get('password')
     }
 
-    const response = await axios.post(`http://localhost:5000/login`, credenciales)
-    const { token } = response.data
+    try {
+        const response = await axios.post(`http://localhost:5000/login`, credenciales)
+        const { token } = response.data
 
-    const expires = new Date()
-    const nextDay = expires.getDate() + 1;
-    expires.setDate(nextDay);
+        const expires = new Date()
+        expires.setDate(expires.getDate() + 1);
 
-    (await cookieStore).set('sav', token, {
-        expires,
-        httpOnly: true,
-        path: '/',
-        sameSite: 'lax'
-    });
+        (await cookies()).set('sav', token, {
+            expires,
+            httpOnly: true,
+            path: '/',
+            sameSite: 'lax'
+        });
+
+        return { success: true };
+    } catch (error) {
+        console.error('Login error:', error);
+        return { success: false, error: 'Login failed' };
+    }
 }

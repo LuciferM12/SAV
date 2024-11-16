@@ -14,10 +14,10 @@ interface ButtonProps {
     onClick?: () => void
 }
 
-const ButtonRender = ({ text, variant, link, icon, loader, className, onClick }: ButtonProps) => {
+const ButtonRender = ({ text, variant, link, icon, loader = false, className, onClick }: ButtonProps) => {
     if (link) {
         return (
-            <Button asChild variant={variant}>
+            <Button asChild variant={variant} disabled={loader}>
                 <Link href={link}>{text}</Link>
             </Button>
         )
