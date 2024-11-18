@@ -30,7 +30,7 @@ export const login = async (req, res) => {
 
         const token = generate(user);
         console.log('Usuario autenticado:', username);
-        return res.status(200).json({ token });
+        return res.status(200).json({ token, user });
 
     } catch (error) {
         console.log('Error en el proceso de autenticación:', error);

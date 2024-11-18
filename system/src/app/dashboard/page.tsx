@@ -1,21 +1,22 @@
 'use client'
 import Banner from "@/components/banners/Banner";
 import { useEffect, useState } from "react";
-import { getCategories, getImagenBanner, getProducts } from "./actions";
+import { getCategories, getCookie, getImagenBanner, getProducts } from "./actions";
 import Historia from "@/components/sections/historia/Historia";
 import Catalogo from "@/components/catalogue/Catalogo";
 import Reservaciones from "@/components/sections/reservaciones/Reservaciones";
 import Opiniones from "@/components/sections/opiniones/Opiniones";
 import LoadingScreen from "@/components/loading/loading";
 import { toast, Toaster } from "sonner";
+import { useSession } from "../context/sesiones/SessionContext";
 
 export default function Index() {
-
+  const { user } = useSession()
   const [image, setImage] = useState<string | null>(null);
   const [categorias, setCategorias] = useState([])
   const [productos, setProductos] = useState([])
   const [isLoading, setIsLoading] = useState<boolean>(true)
-
+  
   const fetchData = async () => {
     try {
       setIsLoading(true)
@@ -53,7 +54,7 @@ export default function Index() {
       />
       <Historia />
       <Catalogo categories={categorias} productos={productos} />
-      <Reservaciones />
+      <Reservaciones logged={!!user} />
       <Opiniones />
       <Toaster richColors theme="dark" />
     </>

@@ -19,7 +19,7 @@ export const login = async (formData: FormData) => {
 
     try {
         const response = await axios.post(`http://localhost:5000/login`, credenciales)
-        const { token } = response.data
+        const { token, user } = response.data
 
         const expires = new Date()
         expires.setDate(expires.getDate() + 1);
@@ -31,7 +31,7 @@ export const login = async (formData: FormData) => {
             sameSite: 'lax'
         });
 
-        return { success: true };
+        return { success: true, user };
     } catch (error) {
         console.error('Login error:', error);
         return { success: false, error: 'Login failed' };

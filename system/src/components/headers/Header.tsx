@@ -4,10 +4,12 @@ import React, { useEffect, useState } from 'react'
 import ButtonRender from '../buttons/Button'
 import { Menu, X } from 'lucide-react'
 import { getLogo } from './actions'
+import { useSession } from '@/app/context/sesiones/SessionContext'
 
 const Header = () => {
     const [image, setImage] = useState<string | null>(null);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const { user, logout } = useSession()
 
     useEffect(() => {
         const fetchLogo = async () => {
@@ -45,7 +47,16 @@ const Header = () => {
                             <li><Link href="/registro">Nosotros</Link></li>
                             <li><Link href="/productos">Productos</Link></li>
                             <li><Link href="/altaproducto">Contáctanos</Link></li>
-                            <ButtonRender variant={"default"} text='Iniciar Sesión' link='/login' />
+                            {
+                                user ?
+                                    <>
+                                        <li><Link href="/altaproducto">{user.fnombre}</Link></li>
+                                        <ButtonRender variant={"default"} text='Cerrar Sesión' onClick={logout} />
+                                    </>
+                                    :
+                                    <ButtonRender variant={"default"} text='Iniciar Sesión' link='/login' />
+                            }
+
                         </ul>
                     </div>
                 </div>

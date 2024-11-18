@@ -9,9 +9,11 @@ import InputPassword from '@/components/inputs/InputPassword';
 import { Toaster, toast } from 'sonner'
 import { useRouter } from 'next/navigation';
 import LoadingScreen from '@/components/loading/loading';
+import { useSession } from '../context/sesiones/SessionContext';
 
 const Login = () => {
     const router = useRouter()
+    const { setUser, user } = useSession()
     const [image, setImage] = useState<string | null>(null);
     const [logo, setLogo] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true)
@@ -24,6 +26,7 @@ const Login = () => {
         const result = await login(formData)
         setIsBusy(false)
         if (result.success) {
+            setUser(result.user)
             router.push('/dashboard')
         } else {
             toast.error('Contraseña o correo equivocados')

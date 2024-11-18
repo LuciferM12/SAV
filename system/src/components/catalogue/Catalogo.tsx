@@ -39,6 +39,7 @@ const Catalogo = ({ categories, productos }: CatalogoProps) => {
              <h1 className='font-extrabold text-3xl mb-6'>Productos Principales </h1>
             <Tabs value={selectedCategory} onValueChange={handleCategoryChange} className="w-[80%]">
                 <TabsList className='flex bg-transparent gap-2'>
+                <TabsTrigger className='dark:bg-gray-800 dark:text-white bg-slate-300 text-black dark:data-[state=active]:bg-slate-50 dark:data-[state=active]:text-black data-[state=active]:bg-slate-900 data-[state=active]:text-white ' value={'Todos'}>Todos</TabsTrigger>
                     {
                         categories.map((categoria, index) => (
                             <TabsTrigger className='dark:bg-gray-800 dark:text-white bg-slate-300 text-black dark:data-[state=active]:bg-slate-50 dark:data-[state=active]:text-black data-[state=active]:bg-slate-900 data-[state=active]:text-white ' key={index} value={categoria.categoria}>{categoria.categoria}</TabsTrigger>

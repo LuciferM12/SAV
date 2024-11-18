@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/headers/Header";
+import { CookieProvider } from "./context/sesiones/SessionContext";
 
 
 
@@ -16,8 +17,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className="dark">
-      <body> 
-        {children}
+      <body>
+        <CookieProvider>
+          {children}
+        </CookieProvider>
       </body>
     </html>
   );
