@@ -5,6 +5,7 @@ import ButtonRender from '../buttons/Button'
 import { Menu, X } from 'lucide-react'
 import { getLogo } from './actions'
 import { useSession } from '@/app/context/sesiones/SessionContext'
+import { ImCart } from "react-icons/im";
 
 const Header = () => {
     const [image, setImage] = useState<string | null>(null);
@@ -51,6 +52,10 @@ const Header = () => {
                                 user ?
                                     <>
                                         <li><Link href="/altaproducto">{user.fnombre}</Link></li>
+                                        {
+                                            user.rol === 7 &&
+                                            <li><Link href="/dashboard/carrito"><ImCart/></Link></li>
+                                        }
                                         <ButtonRender variant={"default"} text='Cerrar Sesión' onClick={logout} />
                                     </>
                                     :
