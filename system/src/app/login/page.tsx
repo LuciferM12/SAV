@@ -10,6 +10,7 @@ import { Toaster, toast } from 'sonner'
 import { useRouter } from 'next/navigation';
 import LoadingScreen from '@/components/loading/loading';
 import { useSession } from '../context/sesiones/SessionContext';
+import FormRender, { FormRenderProps } from '@/components/formRender/FormRender';
 
 const Login = () => {
     const router = useRouter()
@@ -33,7 +34,7 @@ const Login = () => {
         }
     }
 
-    const inputs: InputProps = {
+    /*const inputs: InputProps = {
         placeholder: 'Ingrese su correo electrónico',
         type: "text",
         id: 'email',
@@ -53,6 +54,31 @@ const Login = () => {
         name: 'password',
         required: true,
         disabled: false,
+    }*/
+
+    const formRender: FormRenderProps = {
+        inputs : [
+            {
+                placeholder: 'Ingrese su correo electrónico',
+                type: "text",
+                id: 'email',
+                label: 'Correo electrónico',
+                className: 'w-3/4 p-2 dark:bg-transparent border border-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-300 lg:w-[90%]',
+                name: 'email',
+                required: true,
+                disabled: false,
+            },
+            {
+                placeholder: 'Ingrese su contraseña',
+                type: "password",
+                id: 'password',
+                label: 'Contraseña',
+                className: 'w-3/4 p-2 dark:bg-transparent border border-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-300 lg:w-[90%]',
+                name: 'password',
+                required: true,
+                disabled: false,
+            }
+        ]
     }
 
     const fetchData = async () => {
@@ -87,8 +113,7 @@ const Login = () => {
                 <h1 className='text-3xl font-bold mb-1'>¡Bienvenido de vuelta!</h1>
                 <p>Ingresa para tener acceso a todos nuestros servicios.</p>
                 <form className='flex flex-col mt-5 gap-2' onSubmit={handleSubmit}>
-                    <Input {...inputs} />
-                    <InputPassword {...inputP} />
+                    <FormRender inputs={formRender.inputs} />
                     <ButtonRender
                         text='Entrar'
                         variant="default"

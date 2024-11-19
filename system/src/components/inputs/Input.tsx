@@ -1,8 +1,6 @@
 'use client'
-import React, {useState} from 'react'
+import React from 'react'
 import { InputProps } from './types';
-
-
 
 const Input = ({ placeholder, type = 'text', min, max, minlength, maxlength, label, id, className, name, required = false, disabled = false, onChange }: InputProps) => {
     const optionalProps = {
