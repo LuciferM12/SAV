@@ -34,30 +34,8 @@ const Login = () => {
         }
     }
 
-    /*const inputs: InputProps = {
-        placeholder: 'Ingrese su correo electrónico',
-        type: "text",
-        id: 'email',
-        label: 'Correo electrónico',
-        className: 'w-3/4 p-2 dark:bg-transparent border border-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-300 lg:w-[90%]',
-        name: 'email',
-        required: true,
-        disabled: false,
-    }
-
-    const inputP: InputProps = {
-        placeholder: 'Ingrese su contraseña',
-        type: "password",
-        id: 'password',
-        label: 'Contraseña',
-        className: 'w-3/4 p-2 dark:bg-transparent border border-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-300 lg:w-[90%]',
-        name: 'password',
-        required: true,
-        disabled: false,
-    }*/
-
     const formRender: FormRenderProps = {
-        inputs : [
+        inputs: [
             {
                 placeholder: 'Ingrese su correo electrónico',
                 type: "text",
