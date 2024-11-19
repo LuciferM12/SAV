@@ -9,6 +9,7 @@ type Categorias = {
 }
 
 type Productos = {
+    id_prod: number
     nomprod: string
     precio: number
     image: string
@@ -50,6 +51,7 @@ const Catalogo = ({ categories, productos }: CatalogoProps) => {
                     {filteredProducts.map((producto, index) => (
                         <Card
                             key={index}
+                            id={producto.id_prod}
                             nombre={producto.nomprod}
                             descripcion={producto.descripcion}
                             imagen={producto.image}

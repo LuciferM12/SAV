@@ -44,7 +44,7 @@ const Header = () => {
                     {/* Menú de escritorio */}
                     <div className='block md:hidden'>
                         <ul className='flex gap-9 h-full items-center justify-evenly p-0 text-base list-none font-normal'>
-                            <li><Link href="/">Inicio</Link></li>
+                            <li><Link href="/dashboard">Inicio</Link></li>
                             <li><Link href="/registro">Nosotros</Link></li>
                             <li><Link href="/productos">Productos</Link></li>
                             <li><Link href="/altaproducto">Contáctanos</Link></li>

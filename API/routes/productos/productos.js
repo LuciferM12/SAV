@@ -3,7 +3,8 @@ import { pool } from '../../db.js'
 export const getProducts = async (req, res) => {
     try {
         const result = await pool.query(`
-            SELECT 
+            SELECT
+                productos.id_prod, 
                 productos.nomprod, 
                 productos.precio, 
                 productos.descripcion, 
@@ -35,7 +36,8 @@ export const getProducts = async (req, res) => {
 export const getMainProducts = async (req, res) => {
     try {
         const result = await pool.query(`
-            SELECT 
+            SELECT
+                productos.id_prod, 
                 productos.nomprod, 
                 productos.precio, 
                 productos.descripcion, 

@@ -1,7 +1,7 @@
 'use client'
 import Banner from "@/components/banners/Banner";
-import { useEffect, useState } from "react";
-import { getCategories, getCookie, getImagenBanner, getProducts } from "./actions";
+import { useEffect, useState, useRef } from "react";
+import { getCategories, getImagenBanner, getProducts } from "./actions";
 import Historia from "@/components/sections/historia/Historia";
 import Catalogo from "@/components/catalogue/Catalogo";
 import Reservaciones from "@/components/sections/reservaciones/Reservaciones";
@@ -16,7 +16,7 @@ export default function Index() {
   const [categorias, setCategorias] = useState([])
   const [productos, setProductos] = useState([])
   const [isLoading, setIsLoading] = useState<boolean>(true)
-  
+
   const fetchData = async () => {
     try {
       setIsLoading(true)
