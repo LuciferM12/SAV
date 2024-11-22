@@ -2,7 +2,7 @@
 import React from 'react'
 import { InputProps } from './types';
 
-const Input = ({ placeholder, type = 'text', min, max, minlength, maxlength, label, id, className, classNameDiv, name, required = false, disabled = false, onChange }: InputProps) => {
+const Input = ({ placeholder, type = 'text', min, max, minlength, maxlength, label, id, className, classNameDiv, name, required = false, disabled = false, onChange, value }: InputProps) => {
     const optionalProps = {
         ...(min !== undefined && { min }),
         ...(max !== undefined && { max }),
@@ -26,6 +26,7 @@ const Input = ({ placeholder, type = 'text', min, max, minlength, maxlength, lab
                 onChange={onChange}
                 className={className}
                 {...optionalProps}
+                value={value}
             />
         </div>
     )

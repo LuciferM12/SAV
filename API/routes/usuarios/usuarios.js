@@ -75,3 +75,19 @@ export const getUser = async (req, res) => {
         res.status(500).json({ message: "Error en el servidor" })
     }
 }
+
+export const getProfile = async (req, res) => {
+    //const { id } = req.body
+    const query = `SELECT * FROM usuarios WHERE id_us = 3`
+    //const values = [id]
+    try {
+        //const result = await pool.query(query, values)
+        const result = await pool.query(query)
+        if (result.rows.length === 0) {
+            return res.status(404).json({ message: "Usuario no encontrado" });
+        }
+        res.json(result.rows[0])
+    } catch (error) {
+        res.status(500).json({ message: "Error en el servidor" })
+    }
+}

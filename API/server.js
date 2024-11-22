@@ -4,7 +4,7 @@ import multer from 'multer'
 import cors from 'cors'
 import { pool } from './db.js'
 import { FRONTED_URL, PORT } from './config.js'
-import { createUser, deleteUser, getUser, getUsers, updateUser } from './routes/usuarios/usuarios.js'
+import { createUser, deleteUser, getProfile, getUser, getUsers, updateUser } from './routes/usuarios/usuarios.js'
 import { createProduct, getMainProducts, getProducts } from './routes/productos/productos.js'
 import { getAllCategories, getCategoriesMainProducts, getCategoriesProducts } from './routes/productos/categorias.js'
 import { login } from './routes/sesiones/login.js'
@@ -43,6 +43,7 @@ app.post("/usuarios", createUser)
 app.put("/usuarios/:id", updateUser)
 app.delete("/usuarios/:id", deleteUser)
 app.get("/usuarios/:id", getUser)
+app.get("/profile", getProfile)
 
 /***Productos ***/
 app.post('/productos', upload.single('imagen'), createProduct)

@@ -51,7 +51,7 @@ const Header = () => {
                             {
                                 user ?
                                     <>
-                                        <li><Link href="/altaproducto">{user.fnombre}</Link></li>
+                                        <li><Link href="/dashboard/perfil">{user.fnombre}</Link></li>
                                         {
                                             user.rol === 7 &&
                                             <li><Link href="/dashboard/carrito"><ImCart/></Link></li>
