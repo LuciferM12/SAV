@@ -2,7 +2,7 @@
 import React from 'react'
 import { InputProps } from './types';
 
-const Input = ({ placeholder, type = 'text', min, max, minlength, maxlength, label, id, className, name, required = false, disabled = false, onChange }: InputProps) => {
+const Input = ({ placeholder, type = 'text', min, max, minlength, maxlength, label, id, className, classNameDiv, name, required = false, disabled = false, onChange }: InputProps) => {
     const optionalProps = {
         ...(min !== undefined && { min }),
         ...(max !== undefined && { max }),
@@ -11,7 +11,7 @@ const Input = ({ placeholder, type = 'text', min, max, minlength, maxlength, lab
     };
 
     return (
-        <>
+        <div className={`flex flex-col gap-1 ${classNameDiv}`}>
             <label htmlFor={id}>
                 {label}
                 {required === true && <span className='text-red-600'> *</span>}
@@ -27,7 +27,7 @@ const Input = ({ placeholder, type = 'text', min, max, minlength, maxlength, lab
                 className={className}
                 {...optionalProps}
             />
-        </>
+        </div>
     )
 }
 

@@ -41,7 +41,7 @@ const Login = () => {
                 type: "text",
                 id: 'email',
                 label: 'Correo electrónico',
-                className: 'w-3/4 p-2 dark:bg-transparent border border-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-300 lg:w-[90%]',
+                className: 'w-3/4 lg:w-full p-2 dark:bg-transparent border border-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-300 lg:w-[90%]',
                 name: 'email',
                 required: true,
                 disabled: false,
@@ -51,7 +51,8 @@ const Login = () => {
                 type: "password",
                 id: 'password',
                 label: 'Contraseña',
-                className: 'w-3/4 p-2 dark:bg-transparent border border-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-300 lg:w-[90%]',
+                className: 'lg:w-full p-2 dark:bg-transparent border border-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-300 lg:w-[90%]',
+                classNameDiv: 'w-3/4 lg:w-full',
                 name: 'password',
                 required: true,
                 disabled: false,
@@ -86,7 +87,7 @@ const Login = () => {
 
     return (
         <div className='w-screen h-screen flex'>
-            <div className='w-2/4 h-full p-20  flex flex-col justify-center'>
+            <div className='w-2/4 h-full p-20  flex flex-col justify-center lg:w-full'>
                 {logo && <img className='w-[100px] mb-4' src={logo} alt="Logo" />}
                 <h1 className='text-3xl font-bold mb-1'>¡Bienvenido de vuelta!</h1>
                 <p>Ingresa para tener acceso a todos nuestros servicios.</p>
@@ -96,12 +97,12 @@ const Login = () => {
                         text='Entrar'
                         variant="default"
                         onClick={() => null}
-                        className='w-3/4 mt-6 font-bold'
+                        className='w-3/4 lg:w-full mt-6 font-bold'
                         loader={isbusy}
                     />
                 </form>
             </div>
-            <div className='w-2/4 h-full bg-cover bg-no-repeat blur-sm'
+            <div className='w-2/4 h-full bg-cover bg-no-repeat blur-sm lg:hidden'
                 style={{
                     backgroundImage: image ? `url(${image})` : 'none',
                 }}>

@@ -11,6 +11,7 @@ const InputPassword = ({
     label,
     id,
     className,
+    classNameDiv,
     name,
     required = false,
     disabled = false,
@@ -31,12 +32,12 @@ const InputPassword = ({
     };
 
     return (
-        <div className="relative">
+        <div className={`${classNameDiv} relative`}>
             <label htmlFor={id} className="mb-1 block">
                 {label}
                 {required && <span className="text-red-600"> *</span>}
             </label>
-            <div className="flex items-center">
+            <div className="relative">
                 <input
                     placeholder={placeholder}
                     type={isPasswordVisible ? 'text' : 'password'}
@@ -45,19 +46,18 @@ const InputPassword = ({
                     disabled={disabled}
                     required={required}
                     onChange={onChange}
-                    className={`${className}`}
+                    className={`w-full pr-10 ${className}`}
                     value={value}
                     {...optionalProps}
                 />
-
                 <button
                     type="button"
                     onClick={togglePasswordVisibility}
-                    className="ml-2 text-2xl hover:text-gray-800 focus:outline-none"
+                    className="absolute right-2 top-1/2 transform -translate-y-1/2 text-2xl text-gray-400 hover:text-gray-600 focus:outline-none"
+                    aria-label={isPasswordVisible ? "Ocultar contraseña" : "Mostrar contraseña"}
                 >
                     {isPasswordVisible ? <IoEyeSharp /> : <IoEyeOffSharp />}
                 </button>
-
             </div>
         </div>
     );
