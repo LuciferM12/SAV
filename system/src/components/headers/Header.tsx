@@ -54,7 +54,10 @@ const Header = () => {
                                         <li><Link href="/dashboard/perfil">{user.fnombre}</Link></li>
                                         {
                                             user.rol === 7 &&
-                                            <li><Link href="/dashboard/carrito"><ImCart/></Link></li>
+                                            <>
+                                                <li><Link href="/dashboard/carrito"><ImCart /></Link></li>
+                                                <li><Link href="/dashboard/reservas">Reservas</Link></li>
+                                            </>
                                         }
                                         <ButtonRender variant={"default"} text='Cerrar Sesión' onClick={logout} />
                                     </>
