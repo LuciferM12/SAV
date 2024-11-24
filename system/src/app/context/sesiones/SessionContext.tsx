@@ -9,6 +9,7 @@ interface Session {
   user: User | null
   setUser: (user: User | null) => void
   logout: () => void
+  loading: boolean
 }
 
 interface CookieProviderProps {
@@ -18,6 +19,7 @@ interface CookieProviderProps {
 export const CookieProvider = ({ children }: CookieProviderProps) => {
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState<boolean>(true)
+  
 
   const logout = async () => {
     try {
@@ -31,7 +33,8 @@ export const CookieProvider = ({ children }: CookieProviderProps) => {
   const contextValue = {
     user,
     setUser,
-    logout
+    logout,
+    loading
   }
 
   const fetchData = async () => {

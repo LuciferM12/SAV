@@ -8,18 +8,18 @@ import { useCart } from '@/app/context/carrito/CartContext';
 import ButtonRender from '@/components/buttons/Button';
 
 const Carrito = () => {
-  const { 
-    carrito, 
+  const {
+    carrito,
     modifProd,
     quitarProducto
-   } = useCart();
+  } = useCart()
 
   const total = useMemo(() => {
     return carrito.reduce((total, item) => total + item.precio * item.cantidad, 0).toFixed(2);
-  }, [carrito]);
+  }, [carrito])
 
   return (
-    <div className='p-28 lg:pt-24 lg:p-6 h-5/6'>
+    <div className='p-24 lg:px-6 h-5/6'>
       <h1 className='font-extrabold text-3xl text-center mb-6'>Carrito</h1>
       <div className='w-full flex justify-between items-center md:flex-col gap-4'>
         <div className='dark:bg-zinc-900 shadow-lg rounded-xl overflow-hidden w-[70%] md:w-[90%]'>
@@ -80,7 +80,7 @@ const Carrito = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Carrito;
+export default Carrito

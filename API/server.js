@@ -4,7 +4,7 @@ import multer from 'multer'
 import cors from 'cors'
 import { pool } from './db.js'
 import { FRONTED_URL, PORT } from './config.js'
-import { createUser, deleteUser, getProfile, getUser, getUsers, updateUser } from './routes/usuarios/usuarios.js'
+import { createUser, deleteUser, getProfile, getUser, getUsers, updateProfile, updateUser } from './routes/usuarios/usuarios.js'
 import { createProduct, getMainProducts, getProducts } from './routes/productos/productos.js'
 import { getAllCategories, getCategoriesMainProducts, getCategoriesProducts } from './routes/productos/categorias.js'
 import { login } from './routes/sesiones/login.js'
@@ -16,7 +16,7 @@ const app = express()
 const upload = multer({ storage: multer.memoryStorage() })
 
 app.use(cors({
-    
+
 }))
 
 app.use(morgan('dev'))
@@ -44,6 +44,7 @@ app.put("/usuarios/:id", updateUser)
 app.delete("/usuarios/:id", deleteUser)
 app.get("/usuarios/:id", getUser)
 app.get("/profile", getProfile)
+app.put("/profile", updateProfile)
 
 /***Productos ***/
 app.post('/productos', upload.single('imagen'), createProduct)
@@ -96,7 +97,7 @@ app.get('/image/:id', async (req, res) => {
 app.get('/logo', async (req, res) => {
 
     try {
-       
+
         const query = 'SELECT data, mimetype FROM imagenes WHERE id = $1';
         const result = await pool.query(query, [18]);
 

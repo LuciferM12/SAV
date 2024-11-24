@@ -1,11 +1,8 @@
 'use client'
-import React, { useEffect, useState, ChangeEvent, FormEvent } from 'react'
+import React, { useEffect, useState } from 'react'
 import { getImagenLogin, login } from './actions';
 import { getLogo } from '@/components/headers/actions';
-import { InputProps } from '@/components/inputs/types';
-import Input from '@/components/inputs/Input';
 import ButtonRender from '@/components/buttons/Button';
-import InputPassword from '@/components/inputs/InputPassword';
 import { Toaster, toast } from 'sonner'
 import { useRouter } from 'next/navigation';
 import LoadingScreen from '@/components/loading/loading';
@@ -19,20 +16,6 @@ const Login = () => {
     const [logo, setLogo] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const [isbusy, setIsBusy] = useState<boolean>(false)
-
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
-        setIsBusy(true)
-        const formData = new FormData(event.currentTarget)
-        const result = await login(formData)
-        setIsBusy(false)
-        if (result.success) {
-            setUser(result.user)
-            router.push('/dashboard')
-        } else {
-            toast.error('Contraseña o correo equivocados')
-        }
-    }
 
     const formRender: FormRenderProps = {
         inputs: [
@@ -72,7 +55,20 @@ const Login = () => {
         } finally {
             setIsLoading(false)
         }
+    }
 
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault()
+        setIsBusy(true)
+        const formData = new FormData(event.currentTarget)
+        const result = await login(formData)
+        setIsBusy(false)
+        if (result.success) {
+            setUser(result.user)
+            router.push('/dashboard')
+        } else {
+            toast.error('Contraseña o correo equivocados')
+        }
     }
 
     useEffect(() => {
@@ -95,6 +91,7 @@ const Login = () => {
                     <FormRender inputs={formRender.inputs} />
                     <ButtonRender
                         text='Entrar'
+                        type='submit'
                         variant="default"
                         onClick={() => null}
                         className='w-3/4 lg:w-full mt-6 font-bold'
