@@ -1,13 +1,17 @@
 'use client'
 import React, { useState, useEffect } from "react";
 import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
+import { toast } from "sonner";
 
-const Calendario = () => {
+interface CalendarioProps {
+    setFechaReserva: (date: string) => void
+}
+
+const Calendario = ({setFechaReserva}: CalendarioProps) => {
     const [fecha, setFecha] = useState<Date>(new Date());
     const [mesActual, setMesActual] = useState<number>(fecha.getMonth());
     const [anioActual, setAnioActual] = useState<number>(fecha.getFullYear());
     const [dias, setDias] = useState<JSX.Element[]>([]);
-    const [fechaReserva, setFechaReserva] = useState<string>("");
 
     const meses: string[] = [
         "Enero",
@@ -34,8 +38,8 @@ const Calendario = () => {
         // Días del mes anterior
         for (let i = primerDiaDelMes; i > 0; i--) {
             liTags.push(
-                <li key={`prev-${i}`} className="text-gray-400 pointer-events-none">
-                    {ultimoDiaDelUltimoMes - i + 1}
+                <li key={`prev-${i}`} className="text-gray-400 pointer-events-none p-2">
+                    <span>{ultimoDiaDelUltimoMes - i + 1}</span>
                 </li>
             );
         }
@@ -43,28 +47,30 @@ const Calendario = () => {
         for (let i = 1; i <= ultimoDiaDelMes; i++) {
             const esHoy =
                 i === fecha.getDate() &&
-                    mesActual === new Date().getMonth() &&
-                    anioActual === new Date().getFullYear()
+                mesActual === new Date().getMonth() &&
+                anioActual === new Date().getFullYear()
                     ? "bg-gray-900 text-white pointer-events-none"
                     : "";
+
             liTags.push(
-                <li
-                    key={`current-${i}`}
-                    className={`hover:bg-gray-200 hover:cursor-pointer rounded-full ${esHoy}`}
-                    data-dia={i}
-                    data-mes={mesActual}
-                    data-anio={anioActual}
-                    onClick={() => seleccionarDia(i)}
-                >
-                    {i}
+                <li key={`current-${i}`} className="hover:cursor-pointer  p-2">
+                    <span
+                        className={`hover:bg-gray-200 flex justify-center items-center h-8 w-8 rounded-[100%] ${esHoy} p-2`}
+                        data-dia={i}
+                        data-mes={mesActual}
+                        data-anio={anioActual}
+                        onClick={() => seleccionarDia(i)}
+                    >
+                        {i}
+                    </span>
                 </li>
             );
         }
         // Días del siguiente mes
         for (let i = ultimoDiaSemanaDelMes; i < 6; i++) {
             liTags.push(
-                <li key={`next-${i}`} className="text-gray-400 pointer-events-none">
-                    {i - ultimoDiaSemanaDelMes + 1}
+                <li key={`next-${i}`} className="flex items-center justify-center text-gray-400 pointer-events-none">
+                    <span>{i - ultimoDiaSemanaDelMes + 1}</span>
                 </li>
             );
         }
@@ -81,7 +87,7 @@ const Calendario = () => {
             setFechaReserva(fechaSQL);
             console.log("Fecha seleccionada:", fechaSQL);
         } else {
-            console.log("El día seleccionado no es posterior al día actual.");
+            toast.info('Debe seleccionar un dia posterior al actual.')
         }
     };
 
@@ -102,21 +108,29 @@ const Calendario = () => {
     }, [mesActual, anioActual]);
 
     return (
-        <div className='flex items-start justify-center w-[500px] xl:w-full  h-[400px]'>
+        <div className="flex items-start justify-center w-[500px] xl:w-full">
             <div className="w-11/12 bg-white rounded-xl text-black h-full">
-                <header className='flex items-center pt-6 px-7 pb-2 justify-between'>
-                    <div className='text-2xl font-semibold'>{`${meses[mesActual]} ${anioActual}`}</div>
+                <header className="flex items-center pt-6 px-7 pb-2 justify-between">
+                    <div className="text-2xl font-semibold">{`${meses[mesActual]} ${anioActual}`}</div>
                     <div className="flex">
-                        <span id="prev" className='h-10 w-10 flex justify-center items-center text-center from-neutral-700 text-3xl cursor-pointer rounded-[50%] hover:bg-gray-200' onClick={() => cambiarMes("prev")}>
+                        <span
+                            id="prev"
+                            className="h-10 w-10 flex justify-center items-center text-center from-neutral-700 text-3xl cursor-pointer rounded-[50%] hover:bg-gray-200"
+                            onClick={() => cambiarMes("prev")}
+                        >
                             <LuChevronLeft />
                         </span>
-                        <span id="next" className='h-10 w-10 flex justify-center items-center text-center from-neutral-700 text-3xl cursor-pointer rounded-[50%] hover:bg-gray-200 -mr-2' onClick={() => cambiarMes("next")}>
-                        <LuChevronRight />
+                        <span
+                            id="next"
+                            className="h-10 w-10 flex justify-center items-center text-center from-neutral-700 text-3xl cursor-pointer rounded-[50%] hover:bg-gray-200 -mr-2"
+                            onClick={() => cambiarMes("next")}
+                        >
+                            <LuChevronRight />
                         </span>
                     </div>
                 </header>
-                <div className='p-5 '>
-                    <ul className="grid grid-cols-7 *:mb-5 text-center *:font-semibold *:relative">
+                <div className="p-5">
+                    <ul className="grid grid-cols-7 mb-5 text-center font-semibold">
                         <li>Dom</li>
                         <li>Lun</li>
                         <li>Mar</li>
@@ -125,21 +139,13 @@ const Calendario = () => {
                         <li>Vie</li>
                         <li>Sáb</li>
                     </ul>
-                    <ul className="grid grid-cols-7 *:mb-5 text-center *:font-normal *:relative
-                    `relative *:before:absolute *:before:content-[''] *:before:h-10 *:before:w-10
-                    *:before:top-1/2 *:before:left-1/2 *:before:-z-10 *:before:rounded-full *:before:-translate-x-1/2 *:before:-translate-y-1/2
-                    ">
+                    <ul className="grid grid-cols-7 mb-5 text-center font-normal">
                         {dias}
                     </ul>
                 </div>
-                {fechaReserva && (
-                    <div className="fecha-seleccionada">
-                        <p>Fecha reservada: {fechaReserva}</p>
-                    </div>
-                )}
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default Calendario;
