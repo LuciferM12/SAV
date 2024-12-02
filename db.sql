@@ -85,6 +85,14 @@ CREATE TABLE IF NOT EXISTS opiniones (
   id_us INTEGER NOT NULL
 );
 
+CREATE TABLE horas (
+    id_hora SERIAL PRIMARY KEY,
+    hora VARCHAR(10) NOT NULL
+);
+
+ALTER TABLE reservas ADD COLUMN hora INTEGER;
+
+
 -- Claves Foráneas y restricciones de integridad referencial
 ALTER TABLE ventas ADD CONSTRAINT ventas_id_us_fk FOREIGN KEY (id_us) REFERENCES usuarios (id_us) ON DELETE CASCADE;
 ALTER TABLE ventas ADD CONSTRAINT ventas_id_empleado_fk FOREIGN KEY (id_empleado) REFERENCES usuarios (id_us);
@@ -98,3 +106,4 @@ ALTER TABLE productos ADD CONSTRAINT productos_id_imagen_fk FOREIGN KEY (id_imag
 ALTER TABLE negocio ADD CONSTRAINT negocio_logo_fk FOREIGN KEY (logo) REFERENCES imagenes (id);
 ALTER TABLE negocio ADD CONSTRAINT negocio_imagenP_fk FOREIGN KEY (imagenP) REFERENCES imagenes (id);
 ALTER TABLE productosprincipales ADD CONSTRAINT productosprincipales_id_prod_fk FOREIGN KEY (id_prod) REFERENCES productos (id_prod);
+ALTER TABLE reservas ADD CONSTRAINT reservas_hora_fk FOREIGN KEY (hora) REFERENCES horas (id_hora);
