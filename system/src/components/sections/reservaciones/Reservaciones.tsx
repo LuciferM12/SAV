@@ -27,7 +27,7 @@ const Reservaciones = ({ logged }: { logged: boolean }) => {
                         📅 Reserva ahora y asegura tu mesa para compartir los mejores antojitos mexicanos con familia o amigos.</p>
                     {!logged ?
                         <ButtonRender text='Inicia Sesión' link='/login' variant='default' /> :
-                        <ButtonRender text='Reserva' link='/reservas' variant='default' />
+                        <ButtonRender text='Reserva' link='/dashboard/reservas' variant='default' />
                     }
 
                 </div>
