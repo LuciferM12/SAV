@@ -57,8 +57,8 @@ const Card = ({ id, nombre, descripcion, imagen, precio }: CardProps) => {
                     {`$${precio}`}
                 </div>
             </div>
-            <h3 className="m-2 font-semibold text-xl">{nombre}</h3>
-            <p className="m-0 whitespace-nowrap font-normal py-1 overflow-hidden overflow-ellipsis">
+            <h3 className="m-1 font-semibold text-xl">{nombre}</h3>
+            <p className="m-0 whitespace-nowrap font-normal py-1 px-3 overflow-hidden overflow-ellipsis">
                 {descripcion}
             </p>
         </div>
