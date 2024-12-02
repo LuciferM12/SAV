@@ -2,18 +2,18 @@
 import ButtonRender from '@/components/buttons/Button'
 import FormRender from '@/components/formRender/FormRender'
 import { InputProps } from '@/components/inputs/types'
-import Avvvatars from 'avvvatars-react'
 import React, { useEffect, useState } from 'react'
-import { FaEdit, FaSave } from "react-icons/fa";
-import { MdCancel } from "react-icons/md";
-import { getProfile, updateProfile } from './actions'
+import { createProfile, getLogo } from './actions'
 import LoadingScreen from '@/components/loading/loading'
 import { toast, Toaster } from 'sonner'
 import Authorizer from '@/components/security/Authorizer'
+import { useRouter } from 'next/navigation'
 
 const register = () => {
+    const router = useRouter()
     const [loading, setLoading] = useState(true);
     const [isEditing, setIsEditing] = useState(false)
+    const [logo, setLogo] = useState<string | null>(null);
     const [isbusy, setIsBusy] = useState<boolean>(false)
     const [profileData, setProfileData] = useState({
         fnombre: '',
@@ -22,7 +22,8 @@ const register = () => {
         apellidom: '',
         telefono: '',
         edad: '',
-        usuario: '',
+        username: '',
+        password: ''
     })
 
     const formRender: InputProps[] = [
@@ -35,7 +36,7 @@ const register = () => {
             classNameDiv: 'w-5/12 lg:w-full',
             name: 'fnombre',
             required: true,
-            disabled: !isEditing,
+            disabled: false,
             value: profileData.fnombre,
         },
         {
@@ -47,7 +48,7 @@ const register = () => {
             classNameDiv: 'w-5/12 lg:w-full ',
             name: 'snombre',
             required: false,
-            disabled: !isEditing,
+            disabled: false,
             value: profileData.snombre,
         },
         {
@@ -59,7 +60,7 @@ const register = () => {
             classNameDiv: 'w-5/12 lg:w-full',
             name: 'apellidop',
             required: true,
-            disabled: !isEditing,
+            disabled: false,
             value: profileData.apellidop,
         },
         {
@@ -71,7 +72,7 @@ const register = () => {
             classNameDiv: 'w-5/12 lg:w-full',
             name: 'apellidom',
             required: false,
-            disabled: !isEditing,
+            disabled: false,
             value: profileData.apellidom,
         },
         {
@@ -83,7 +84,7 @@ const register = () => {
             classNameDiv: 'w-5/12 lg:w-full',
             name: 'telefono',
             required: false,
-            disabled: !isEditing,
+            disabled: false,
             value: profileData.telefono,
         },
         {
@@ -95,7 +96,7 @@ const register = () => {
             classNameDiv: 'w-5/12 lg:w-full',
             name: 'edad',
             required: false,
-            disabled: !isEditing,
+            disabled: false,
             min: 1,
             value: profileData.edad,
         },
@@ -108,37 +109,30 @@ const register = () => {
             classNameDiv: 'w-5/12 lg:w-full',
             name: 'username',
             required: true,
-            disabled: !isEditing,
-            value: profileData.usuario,
+            disabled: false,
+            value: profileData.username,
         },
         {
-            placeholder: 'Deje en blanco si no desea hacer modificaciones.',
+            placeholder: '',
             type: "password",
             id: 'password',
             label: 'Contraseña',
             className: ' p-2 dark:bg-transparent border border-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-300',
             classNameDiv: 'w-5/12 lg:w-full',
             name: 'password',
-            required: false,
-            disabled: !isEditing,
+            required: true,
+            disabled: false,
+            value: profileData.password
         }
     ]
 
     const fetchData = async () => {
         try {
-            const info = await getProfile()
-            setProfileData({
-                fnombre: info.fnombre || '',
-                snombre: info.snombre || '',
-                apellidop: info.apellidop || '',
-                apellidom: info.apellidom || '',
-                telefono: info.telefono || '',
-                edad: info.edad !== null ? String(info.edad) : '',
-                usuario: info.usuario || '',
-            })
+            const imagen = await getLogo()
+            setLogo(imagen)
             setLoading(false)
         } catch (error) {
-            console.error("Error fetching profile data:", error)
+            console.error("Error fetching data:", error)
             setLoading(false)
         }
     }
@@ -147,12 +141,13 @@ const register = () => {
         event.preventDefault()
         setIsBusy(true)
         const formData = new FormData(event.currentTarget)
-        const result = await updateProfile(formData)
+        const result = await createProfile(formData)
         setIsBusy(false)
         setIsEditing(!isEditing)
         fetchData()
         if (result.success) {
-            toast.success('Datos correctamente actualizados')
+            toast.success('Usuario registrado')
+            router.push('/dashboard')
         } else {
             toast.error('Error al actualizar')
         }
@@ -173,56 +168,24 @@ const register = () => {
 
     return (
         <div className='p-24 lg:px-6'>
-            <Authorizer allowedRoles={[7]}>
+            
                 <div className='flex box-border items-center justify-center flex-col gap-5'>
-                    <Avvvatars value={profileData.fnombre} size={200} style='shape' />
-                    <h3 className='font-bold text-lg'>Cliente</h3>
+                    {logo && <img className='w-[200px] h-[200px]' src={logo} />}
+                    <h3 className='font-bold text-lg'>¡Registrese para tener acceso total!</h3>
                     <form className='w-full flex gap-4 lg:flex-col  justify-center flex-wrap box-border ' onSubmit={handleSubmit} id='profile'>
                         <FormRender inputs={formRender} onChange={handleInputChange} />
-                        {!isEditing && (
-                            <div className='min-w-full flex justify-center pt-[20px]'>
-                                <ButtonRender
-                                    text='Editar'
-                                    type='button'
-                                    icon={<FaEdit />}
-                                    onClick={() => setIsEditing(!isEditing)}
-                                    variant={'default'}
-                                    loader={isbusy}
-                                />
-                            </div>
-                        )}
+                        <div className='min-w-full flex justify-center pt-[20px]'>
+                            <ButtonRender
+                                type='submit'
+                                form='profile'
+                                text='Registrate'
+                                variant={'default'}
+                                loader={isbusy}
+                            />
+                        </div>
                     </form>
-
-                    {
-                        isEditing && (
-                            <div className='flex items-center justify-center min-w-full gap-5 pt-4'>
-                                <ButtonRender
-                                    type='submit'
-                                    form='profile'
-                                    text='Guardar'
-                                    icon={<FaSave />}
-                                    variant={'default'}
-                                    loader={isbusy}
-                                />
-                                <ButtonRender
-                                    text='Cancelar'
-                                    type='button'
-                                    icon={<MdCancel />}
-                                    variant={'default'}
-                                    onClick={() => {
-                                        setIsEditing(false)
-                                        fetchData()
-                                    }}
-                                    loader={isbusy}
-                                />
-                            </div>
-                        )
-                    }
-
-
                 </div>
                 <Toaster theme='dark' richColors />
-            </Authorizer>
         </div>
     )
 }
