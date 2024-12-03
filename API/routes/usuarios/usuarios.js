@@ -12,12 +12,16 @@ export const getUsers = async (req, res) => {
 
 export const createUser = async (req, res) => {
     const { body } = req
-    const { usuario, password, fnombre, snombre, apellidop, apellidom } = body
+    let { usuario, password, fnombre, snombre, apellidop, apellidom, edad, telefono } = body
+    if(!edad) edad = null
+    if(!telefono) telefono = null
+    if(!snombre) snombre = null
+    if(!apellidom) apellidom = null
     const query = `INSERT INTO 
-        usuarios (fnombre, snombre, apellidop, apellidom, usuario, password, rol) 
-        VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *;`
+        usuarios (fnombre, snombre, apellidop, apellidom, usuario, password, rol, edad, telefono) 
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *;`
     const hashedPassword = await hash(password)
-    const values = [fnombre, snombre, apellidop, apellidom, usuario, hashedPassword, 7]
+    const values = [fnombre, snombre, apellidop, apellidom, usuario, hashedPassword, 7, edad, telefono]
     try {
         const result = await pool.query(query, values)
         res.json(result.rows[0])

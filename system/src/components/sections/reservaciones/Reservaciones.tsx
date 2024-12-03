@@ -23,10 +23,11 @@ const Reservaciones = ({ logged }: { logged: boolean }) => {
                 </div>
                 <div className='w-[48%] p-2 flex flex-col items-center 2xl:w-full'>
                     <h1 className='font-extrabold text-3xl mb-3'>Reserva</h1>
-                    <p className='leading-normal font-light mb-3 '>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolore consequuntur voluptas fugit, repudiandae cumque pariatur error fuga sunt excepturi cupiditate ullam, inventore similique quasi laudantium, aspernatur officiis quae sequi? Eligendi accusamus maiores ullam ab pariatur quas obcaecati reprehenderit. Necessitatibus sequi incidunt, dolor ipsam aliquid quod placeat? Perspiciatis quaerat fugit laudantium expedita. Illum enim optio neque ipsam exercitationem voluptate architecto! Id ratione earum iste provident aliquam hic assumenda, repellendus ipsum et sint laboriosam impedit autem illo architecto porro atque labore perspiciatis rem fugit animi minus! Ipsam incidunt nam laborum beatae veritatis sed tempore laudantium deserunt sit magni, dignissimos sint magnam nihil?</p>
+                    <p className='leading-normal font-light mb-3 '>¡Vive una experiencia llena de sabor sin contratiempos! En Antojitos Mary, queremos que disfrutes cada momento, por eso te ofrecemos la opción de reservar tu lugar de forma rápida y sencilla.
+                        📅 Reserva ahora y asegura tu mesa para compartir los mejores antojitos mexicanos con familia o amigos.</p>
                     {!logged ?
                         <ButtonRender text='Inicia Sesión' link='/login' variant='default' /> :
-                        <ButtonRender text='Reserva' link='/reservas' variant='default' />
+                        <ButtonRender text='Reserva' link='/dashboard/reservas' variant='default' />
                     }
 
                 </div>

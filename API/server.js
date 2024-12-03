@@ -11,6 +11,8 @@ import { login } from './routes/sesiones/login.js'
 import { createRole } from './routes/configuracion/roles.js'
 import decode from './routes/sesiones/decode.js'
 import protectedRoute from './routes/sesiones/protected.js'
+import { getHours } from './routes/reservacion/horas.js'
+import { createReservation, deleteReservation, getReservationForUser } from './routes/reservacion/reservacion.js'
 
 const app = express()
 const upload = multer({ storage: multer.memoryStorage() })
@@ -55,6 +57,13 @@ app.get("/pproductos", getMainProducts)
 app.get("/categorias", getAllCategories)
 app.get("/categorias/productos", getCategoriesProducts)
 app.get("/categorias/principalesproductos", getCategoriesMainProducts)
+
+
+/*** Reservaciones ***/
+app.get("/horas", getHours)
+app.post("/reservas", createReservation)
+app.get("/reservas", getReservationForUser)
+app.delete("/reservas/:id", deleteReservation)
 
 /***Roles***/
 app.post("/roles", createRole)
