@@ -45,19 +45,24 @@ const Header = () => {
                     <div className='block md:hidden'>
                         <ul className='flex gap-9 h-full items-center justify-evenly p-0 text-base list-none font-normal'>
                             <li><Link href="/dashboard">Inicio</Link></li>
-                            <li><Link href="/registro">Nosotros</Link></li>
+                            <li><Link href="#nosotros">Nosotros</Link></li>
                             <li><Link href="/productos">Productos</Link></li>
-                            <li><Link href="/altaproducto">Contáctanos</Link></li>
+                            <li><Link href="#contactanos">Contáctanos</Link></li>
                             {
                                 user ?
                                     <>
                                         <li><Link href="/dashboard/perfil">{user.fnombre}</Link></li>
                                         {
-                                            user.rol === 7 &&
+                                            user.rol === 7 ?
                                             <>
                                                 <li><Link href="/dashboard/reservas">Reservas</Link></li>
                                                 <li><Link href="/dashboard/carrito"><ImCart /></Link></li>
+                                            </>:
+                                            //user.rol === 8 ?
+                                            <>
+                                                <li><Link href="/dashboard/configuraciones">Personalizacion</Link></li>
                                             </>
+
                                         }
                                         <ButtonRender variant={"default"} text='Cerrar Sesión' onClick={logout} />
                                     </>
@@ -73,9 +78,9 @@ const Header = () => {
                 <div className={`md:block hidden transition-all duration-300 ease-in-out overflow-hidden ${isMenuOpen ? 'opacity-100 max-h-60' : 'opacity-0 max-h-0'}`}>
                     <ul className='flex flex-col items-center py-4 gap-4'>
                         <li><Link href="/" onClick={toggleMenu}>Inicio</Link></li>
-                        <li><Link href="/registro" onClick={toggleMenu}>Nosotros</Link></li>
+                        <li><Link href="#nosotros" onClick={toggleMenu}>Nosotros</Link></li>
                         <li><Link href="/productos" onClick={toggleMenu}>Productos</Link></li>
-                        <li><Link href="/altaproducto" onClick={toggleMenu}>Contáctanos</Link></li>
+                        <li><Link href="#contactanos" onClick={toggleMenu}>Contáctanos</Link></li>
                         <li>
                             <ButtonRender
                                 variant={"default"}

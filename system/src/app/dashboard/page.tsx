@@ -79,9 +79,14 @@ export default function Index() {
         secundario={false}
         image={image}
       />
-      <Historia historia={informacion ? informacion.nosotros : ""} imgNos={imageNos ? imageNos : ""}/>
-      <h1 className='font-extrabold text-3xl text-center mb-6'>Productos Principales</h1>
-      <Catalogo categories={categorias} productos={productos} isLoadingCategories={isLoadingCategories} isLoadingProducts={isLoadingProducts}/>
+      <div id="nosotros">
+        <Historia historia={informacion ? informacion.nosotros : ""} imgNos={imageNos ? imageNos : ""} />
+      </div>
+      <div id="productosPrincipales">
+        <h1 className='font-extrabold text-3xl text-center mb-6'>Productos Principales</h1>
+        <Catalogo categories={categorias} productos={productos} isLoadingCategories={isLoadingCategories} isLoadingProducts={isLoadingProducts} />
+      </div>
+      
       <Reservaciones logged={!!user} imgRes={imageRes ? imageRes : ""} reservacionesText={informacion ? informacion.reservastext : ""} />
       <Opiniones />
       <Toaster richColors theme="dark" />

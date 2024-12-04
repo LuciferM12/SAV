@@ -193,7 +193,7 @@ const Company = () => {
 
     return (
         <div className='p-24 lg:px-6'>
-            <Authorizer allowedRoles={[7]}>
+            <Authorizer allowedRoles={[8]}>
                 <div className='flex box-border items-center justify-center flex-col gap-5'>
 
                     <h3 className='font-bold text-lg'>Informacion</h3>

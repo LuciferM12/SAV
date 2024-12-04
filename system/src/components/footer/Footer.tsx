@@ -18,12 +18,12 @@ const Footer = () => {
             <h3 className="font-bold text-lg mb-4">Enlaces Rápidos</h3>
             <ul className="space-y-2">
               <li><Link href="/" className="hover:text-gray-900 transition-colors">Inicio</Link></li>
-              <li><Link href="/products" className="hover:text-gray-900 transition-colors">Productos</Link></li>
-              <li><Link href="/about" className="hover:text-gray-900 transition-colors">Nosotros</Link></li>
-              <li><Link href="/contact" className="hover:text-gray-900 transition-colors">Contáctanos</Link></li>
+              <li><Link href="/productos" className="hover:text-gray-900 transition-colors">Productos</Link></li>
+              <li><Link href="#nosotros" className="hover:text-gray-900 transition-colors">Nosotros</Link></li>
+              <li><Link href="#contactanos" className="hover:text-gray-900 transition-colors">Contáctanos</Link></li>
             </ul>
           </div>
-          <div>
+          <div id='contactanos'>
             <h3 className="font-bold text-lg mb-4">Contáctanos</h3>
             <p className="text-sm">Francisco González Bocanegra 514, 21 de Marzo, 78437 Soledad de Graciano Sánchez, S.L.P.</p>
             <p className="text-sm">Corrreo: antojitosmary@gmail.com</p>
