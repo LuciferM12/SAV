@@ -140,58 +140,61 @@ app.post('/upload-images', upload.fields([
     }
 });
 
-/*** Prueba2 ***/
-app.post('/product-image', upload.fields([
-    { name: 'imagen', maxCount: 1 }
+app.post('/createNewProduct', upload.fields([
+    { name: 'prod', maxCount: 1 },
 ]), async (req, res) => {
     let client;
-    const { producto, precio, description, categoria } = req.body;
+
     try {
         // Obtener una conexión del pool
+        const { producto, precio, description, categoria } = req.body;
         client = await pool.connect();
-
+        const idCatInt = parseInt(categoria, 10);
         // Iniciar la transacción
         await client.query('BEGIN');
 
-        let id_imagen = null;
+        const imageTypes = ['prod'];
+        const insertedImages = {};
 
-        // Verificar si se ha subido una imagen
-        if (req.files['imagen'] && req.files['imagen'][0]) {
-            const { buffer, mimetype } = req.files['imagen'][0];
+        for (const type of imageTypes) {
+            if (req.files[type] && req.files[type][0]) {
+                const { buffer, mimetype } = req.files[type][0];
 
-            // Insertar la imagen en la tabla `imagenes`
-            const query = 'INSERT INTO imagenes (data, mimetype) VALUES ($1, $2) RETURNING id';
-            const values = [buffer, mimetype];
-            const result = await client.query(query, values);
+                // Insertar la imagen en la tabla `imagenes`
+                const query = 'INSERT INTO imagenes (data, mimetype) VALUES ($1, $2) RETURNING id';
+                const values = [buffer, mimetype];
+                const result = await client.query(query, values);
 
-            // Guardar el ID de la imagen insertada
-            id_imagen = result.rows[0].id;
-        } else {
-            // Si no se ha subido una imagen, usa un valor predeterminado o maneja el error
-            throw new Error('Se requiere una imagen para el producto');
+                // Guardar el ID de la imagen insertada
+                insertedImages[type] = result.rows[0].id;
+            }
         }
 
-        // Actualizar la tabla `productos` con los datos del producto y el ID de la imagen
-        const updateQuery = `INSERT INTO productos (nomprod, precio, descripcion, id_imagen, id_categoria) VALUES ($1, $2, $3, $4, $5) RETURNING *`;
-        const updateValues = [producto, precio, description, id_imagen, categoria];
-        const productResult = await client.query(updateQuery, updateValues);
+        // Actualizar la tabla `negocio` con los IDs de las imágenes
+        const updateQuery = `
+        INSERT INTO productos (nomprod, precio, descripcion, id_imagen, id_categoria) VALUES ($1, $2, $3, $4, $5) RETURNING *
+      `;
+        const updateValues = [
+            producto, precio, description, 
+            insertedImages.prod,
+            idCatInt
+        ];
+        await client.query(updateQuery, updateValues);
 
         // Confirmar la transacción
         await client.query('COMMIT');
 
-        res.json({ message: 'Producto creado exitosamente', product: productResult.rows[0] });
+        res.json({ message: 'Images uploaded successfully', insertedImages });
     } catch (error) {
         // Revertir la transacción en caso de error
         if (client) await client.query('ROLLBACK');
         console.error(error);
-        res.status(500).json({ message: 'Error al crear el producto', error: error.message });
+        res.status(500).json({ message: 'Error uploading images' });
     } finally {
         // Liberar la conexión al pool
         if (client) client.release();
     }
 });
-
-
 
 
 

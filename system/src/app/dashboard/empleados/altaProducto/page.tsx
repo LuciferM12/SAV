@@ -1,24 +1,26 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { Toaster, toast } from 'sonner'
-import { getCategories, createProduct } from '@/app/dashboard/empleados/altaProducto/actionsProduct'
+import { getCategories, createProduct } from '@/app/dashboard/empleados/altaProducto/actions'
 import { Button } from "@/components/ui/button"
 import FormRender from '@/components/formRender/FormRender'
 import CustomImageInput from '@/components/inputs/InputFile'
 import { InputProps } from '@/components/inputs/types'
+import { getLogo } from '@/components/headers/actions'
+import { FlexibleSelect } from '@/components/inputs/InputSelect'
+import ButtonRender from '@/components/buttons/Button'
 
 interface ImageFiles {
-    imagen: File | null;
+    prod: File | null;
 }
-
-
 
 export default function AltaProducto() {
     const [categories, setCategories] = useState([])
+    const [logo, setLogo] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false)
+    const [isbusy, setIsBusy] = useState<boolean>(false)
     const [formValues, setFormValues] = useState({
         producto: '',
         precio: '',
@@ -28,15 +30,24 @@ export default function AltaProducto() {
     const router = useRouter()
 
     const [imageFiles, setImageFiles] = useState<ImageFiles>({
-        imagen: null
+        prod: null
     })
 
-    useEffect(() => {
-        const fetchCategories = async () => {
+    const fetchData = async () => {
+        try {
+            const imagen = await getLogo()
+            setLogo(imagen)
             const fetchedCategories = await getCategories()
             setCategories(fetchedCategories)
+            setIsLoading(false)
+        } catch (error) {
+            console.error("Error fetching data:", error)
+            setIsLoading(false)
         }
-        fetchCategories()
+    }
+
+    useEffect(() => {
+        fetchData()
     }, [])
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,9 +58,22 @@ export default function AltaProducto() {
         }))
     }
 
+    const handleSelectChange = (name: string) => (value: string) => {
+        console.log(value)
+        setFormValues(prev => ({
+            ...prev,
+            [name]: value
+        }))
+    }
+
+    const handleImageChange = (file: File | null, imageType: keyof ImageFiles) => {
+        setImageFiles(prev => ({ ...prev, [imageType]: file }));
+    }
+
+
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        setIsLoading(true)
+        setIsBusy(true)
 
         const formData = new FormData()
         Object.entries(formValues).forEach(([key, value]) => {
@@ -57,13 +81,14 @@ export default function AltaProducto() {
                 formData.append(key, value)
             }
         })
-        /*
-        if (!formValues.image) {
-            toast.error('Por favor seleccione una imagen')
-            setIsLoading(false)
+        // Add the image file to FormData
+        if (imageFiles.prod) {
+            formData.append('prod', imageFiles.prod)
+        } else {
+            toast.error('Por favor seleccione una imagen del producto')
+            setIsBusy(false)
             return
         }
-            */
 
         try {
             const result = await createProduct(formData)
@@ -76,7 +101,7 @@ export default function AltaProducto() {
         } catch (error) {
             toast.error('Ocurrió un error al enviar el formulario.')
         } finally {
-            setIsLoading(false)
+            setIsBusy(false)
         }
     }
 
@@ -114,40 +139,34 @@ export default function AltaProducto() {
             label: "Descripción",
             value: formValues.description,
         },
-        {
-            placeholder: "Seleccione una categoria",
-            type: "text",
-            name: "categoria",
-            id: "categoria",
-            className: 'lg:w-full p-2 dark:bg-transparent border border-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-300 lg:w-[90%]',
-            classNameDiv: 'w-full lg:w-full',
-            required: true,
-            label: "Categoría",
-            value: formValues.categoria,
-        }
-    ]
 
-    const handleImageChange = (file: File | null, imageType: keyof ImageFiles) => {
-        setImageFiles(prev => ({ ...prev, [imageType]: file }));
-    }
+    ]
 
     return (
         <main className="min-h-screen bg-black flex items-center justify-center py-20 px-4">
             <div className="w-full max-w-2xl flex flex-col items-center gap-12 text-white">
-                <Image
-                    src="/AM_Logo.png"
-                    alt="logo"
-                    width={200}
-                    height={100}
-                    className="w-1/5"
-                />
+                {logo && <img className='w-[200px] h-[200px]' src={logo} />}
                 <h1 className="text-3xl font-bold">Nuevo Producto</h1>
                 <form onSubmit={handleSubmit} className="w-full space-y-6">
                     <FormRender inputs={inputs} onChange={handleChange} />
-                    <CustomImageInput onChange={(file) => handleImageChange(file, 'imagen')} label='imagen' name='imagen' />
-                    <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white" disabled={isLoading}>
-                        {isLoading ? 'Enviando...' : 'Registrar Producto'}
-                    </Button>
+                    <FlexibleSelect
+                        options={categories}
+                        onChange={handleSelectChange('categoria')}
+                        value={formValues.categoria}
+                        placeholder="Seleccione una categoría"
+                        label="Categoria"
+                        name="categoria"
+                        className="w-full"
+                    />
+                    <CustomImageInput onChange={(file) => handleImageChange(file, 'prod')} label='Imagen de Producto' name='prod' />
+                    <div className='w-full flex justify-center'>
+                    <ButtonRender
+                        type='submit'
+                        text='Guardar'
+                        variant={'default'}
+                        loader={isbusy}
+                    />
+                    </div>
                 </form>
             </div>
             <Toaster theme="dark" position="bottom-right" richColors />

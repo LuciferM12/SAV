@@ -173,7 +173,7 @@ const Perfil = () => {
 
     return (
         <div className='p-24 lg:px-6'>
-            <Authorizer allowedRoles={[7]}>
+            <Authorizer allowedRoles={[7,8]}>
                 <div className='flex box-border items-center justify-center flex-col gap-5'>
                     <Avvvatars value={profileData.fnombre} size={200} style='shape' />
                     <h3 className='font-bold text-lg'>Cliente</h3>
