@@ -98,6 +98,14 @@ const Login = () => {
                         loader={isbusy}
                     />
                 </form>
+                <ButtonRender
+                        text='Registrarse'
+                        type='button'
+                        variant="secondary"
+                        link='/register'
+                        className='w-3/4 lg:w-full mt-6 font-bold'
+                        loader={isbusy}
+                    />
             </div>
             <div className='w-2/4 h-full bg-cover bg-no-repeat blur-sm lg:hidden'
                 style={{

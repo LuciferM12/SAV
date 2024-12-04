@@ -96,7 +96,7 @@ const Reservas = () => {
               }
             </> :
             <>
-              <div className='w-[500px] h-[300px] bg-gray-900 p-4 flex flex-col gap-5 rounded-3xl text-lg'>
+              <div className='w-[500px] h-[300px]  dark:bg-gray-900 bg-gray-200 p-4 flex flex-col gap-5 rounded-3xl text-lg'>
                 <h2 className='font-semibold text-center'>Tu reservación:</h2>
                 <p>Dia: {formatoAmigable(fechaReserva)}</p>
                 <p>Hora: {hora} </p>

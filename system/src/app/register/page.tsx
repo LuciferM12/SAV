@@ -184,6 +184,13 @@ const register = () => {
                             />
                         </div>
                     </form>
+                    <ButtonRender
+                                type='button'
+                                link='/login'
+                                text='Regresar'
+                                variant={'secondary'}
+                                loader={isbusy}
+                            />
                 </div>
                 <Toaster theme='dark' richColors />
         </div>
