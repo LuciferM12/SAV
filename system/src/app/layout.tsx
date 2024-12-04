@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Header from "@/components/headers/Header";
 import { CookieProvider } from "./context/sesiones/SessionContext";
-
-
+import ThemeToggle from "@/components/buttons/ThemeToggle";
+import { ThemeProvider } from "next-themes";
 
 export const metadata: Metadata = {
   title: "SAV",
@@ -16,12 +15,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className="dark">
+    <html lang="es" suppressHydrationWarning>
       <body>
-        <CookieProvider>
-          {children}
-        </CookieProvider>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <CookieProvider>
+            {children}
+            <ThemeToggle />
+          </CookieProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
 }
+

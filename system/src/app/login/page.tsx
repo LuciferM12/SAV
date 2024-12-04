@@ -20,10 +20,10 @@ const Login = () => {
     const formRender: FormRenderProps = {
         inputs: [
             {
-                placeholder: 'Ingrese su correo electrónico',
+                placeholder: 'Ingrese su usuario',
                 type: "text",
                 id: 'email',
-                label: 'Correo electrónico',
+                label: 'Usuario',
                 className: 'w-3/4 lg:w-full p-2 dark:bg-transparent border border-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-300 lg:w-[90%]',
                 name: 'email',
                 required: true,
