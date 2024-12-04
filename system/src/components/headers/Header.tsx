@@ -46,7 +46,7 @@ const Header = () => {
                         <ul className='flex gap-9 h-full items-center justify-evenly p-0 text-base list-none font-normal'>
                             <li><Link href="/dashboard">Inicio</Link></li>
                             <li><Link href="/registro">Nosotros</Link></li>
-                            <li><Link href="/dashboard/productos">Productos</Link></li>
+                            <li><Link href="/productos">Productos</Link></li>
                             <li><Link href="/altaproducto">Contáctanos</Link></li>
                             {
                                 user ?
@@ -74,7 +74,7 @@ const Header = () => {
                     <ul className='flex flex-col items-center py-4 gap-4'>
                         <li><Link href="/" onClick={toggleMenu}>Inicio</Link></li>
                         <li><Link href="/registro" onClick={toggleMenu}>Nosotros</Link></li>
-                        <li><Link href="/dashboard/productos" onClick={toggleMenu}>Productos</Link></li>
+                        <li><Link href="/productos" onClick={toggleMenu}>Productos</Link></li>
                         <li><Link href="/altaproducto" onClick={toggleMenu}>Contáctanos</Link></li>
                         <li>
                             <ButtonRender
