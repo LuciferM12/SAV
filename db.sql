@@ -91,6 +91,10 @@ CREATE TABLE horas (
 );
 
 ALTER TABLE reservas ADD COLUMN hora INTEGER;
+ALTER TABLE negocio ADD COLUMN nombre VARCHAR(100);
+ALTER TABLE negocio ADD COLUMN reservasText VARCHAR(100);
+ALTER TABLE negocio ADD COLUMN reservasImg INTEGER;
+ALTER TABLE negocio ADD COLUMN nosotrosImg INTEGER;
 
 
 -- Claves Foráneas y restricciones de integridad referencial
@@ -104,6 +108,8 @@ ALTER TABLE opiniones ADD CONSTRAINT opiniones_id_us_fk FOREIGN KEY (id_us) REFE
 ALTER TABLE productos ADD CONSTRAINT productos_id_categoria_fk FOREIGN KEY (id_categoria) REFERENCES categorias (id_cat);
 ALTER TABLE productos ADD CONSTRAINT productos_id_imagen_fk FOREIGN KEY (id_imagen) REFERENCES imagenes (id);
 ALTER TABLE negocio ADD CONSTRAINT negocio_logo_fk FOREIGN KEY (logo) REFERENCES imagenes (id);
+ALTER TABLE negocio ADD CONSTRAINT negocio_res_fk FOREIGN KEY (reservasImg) REFERENCES imagenes (id);
+ALTER TABLE negocio ADD CONSTRAINT negocio_nos_fk FOREIGN KEY (nosotrosImg) REFERENCES imagenes (id);
 ALTER TABLE negocio ADD CONSTRAINT negocio_imagenP_fk FOREIGN KEY (imagenP) REFERENCES imagenes (id);
 ALTER TABLE productosprincipales ADD CONSTRAINT productosprincipales_id_prod_fk FOREIGN KEY (id_prod) REFERENCES productos (id_prod);
 ALTER TABLE reservas ADD CONSTRAINT reservas_hora_fk FOREIGN KEY (hora) REFERENCES horas (id_hora);

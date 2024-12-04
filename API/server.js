@@ -13,6 +13,7 @@ import decode from './routes/sesiones/decode.js'
 import protectedRoute from './routes/sesiones/protected.js'
 import { getHours } from './routes/reservacion/horas.js'
 import { createReservation, deleteReservation, getReservationForUser } from './routes/reservacion/reservacion.js'
+import { getBanner, getInformation, getLogo, getNosotros, getReserva  } from './routes/negocio/informacion.js'
 
 const app = express()
 const upload = multer({ storage: multer.memoryStorage() })
@@ -68,6 +69,14 @@ app.delete("/reservas/:id", deleteReservation)
 /***Roles***/
 app.post("/roles", createRole)
 
+/**Info ***/
+app.get("/informacion", getInformation)
+app.get("/img/banner", getBanner)
+app.get("/img/reserva", getReserva)
+app.get("/img/nosotros", getNosotros)
+app.get('/logo', getLogo);
+
+
 app.post('/upload', upload.single('image'), async (req, res) => {
     try {
         const { buffer, mimetype } = req.file;  // Accede a la imagen y su tipo MIME
@@ -103,22 +112,3 @@ app.get('/image/:id', async (req, res) => {
     }
 });
 
-app.get('/logo', async (req, res) => {
-
-    try {
-
-        const query = 'SELECT data, mimetype FROM imagenes WHERE id = $1';
-        const result = await pool.query(query, [18]);
-
-        if (result.rows.length > 0) {
-            const image = result.rows[0];
-            res.set('Content-Type', image.mimetype);  // Establece el tipo MIME correcto
-            res.send(image.data);  // Envía la imagen en formato binario
-        } else {
-            res.status(404).send('Image not found');
-        }
-    } catch (error) {
-        console.error(error);
-        res.status(500).send('Error fetching image');
-    }
-});
