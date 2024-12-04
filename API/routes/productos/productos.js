@@ -69,25 +69,27 @@ export const getMainProducts = async (req, res) => {
 
 export const createProduct = async (req, res) => {
     const { producto, precio, description, categoria } = req.body;
-    const imagen = req.file;
-    if (!producto || !precio || !description || !categoria || !imagen) {
+    //const imagen = req.file;
+    /*if (!producto || !precio || !description || !categoria || !imagen) {
         return res.status(400).json({ message: 'Debe llenar todos los campos' })
-    }
+    }*/
 
     try {
         // Inicia la transacción
         await pool.query('BEGIN');
-
+/*
         // Insertar la imagen
         let query = 'INSERT INTO imagenes (data, mimetype) VALUES ($1, $2) RETURNING *';
         let values = [imagen.buffer, imagen.mimetype];
         let result = await pool.query(query, values);
-        const imagenId = result.rows[0].id;
-
+        */
+        //const imagenId = result.rows[0].id;
+        const imagenId = 5;
+      
         // Insertar el producto
-        query = 'INSERT INTO productos (nomprod, precio, descripcion, id_imagen, id_categoria) VALUES ($1, $2, $3, $4, $5) RETURNING *';
-        values = [producto, precio, description, imagenId, categoria];
-        result = await pool.query(query, values);
+        let query = 'INSERT INTO productos (nomprod, precio, descripcion, id_imagen, id_categoria) VALUES ($1, $2, $3, $4, $5) RETURNING *';
+        let values = [producto, precio, description, imagenId, categoria];
+        let result = await pool.query(query, values);
 
         // Confirmar la transacción si todo sale bien
         await pool.query('COMMIT');
