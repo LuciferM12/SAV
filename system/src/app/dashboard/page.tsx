@@ -16,19 +16,28 @@ export default function Index() {
   const [categorias, setCategorias] = useState([])
   const [productos, setProductos] = useState([])
   const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [isLoadingProducts, setIsLoadingProducts] = useState<boolean>(true)
+  const [isLoadingCategories, setIsLoadingCategories] = useState<boolean>(true)
 
   const fetchData = async () => {
     try {
       setIsLoading(true)
+      setIsLoadingCategories(true)
+      setIsLoadingProducts(true)
       const logo = await getImagenBanner()
       setImage(logo)
+      setIsLoading(false)
       const categorias = await getCategories()
       setCategorias(categorias)
+      setIsLoadingCategories(false)
       const productos = await getProducts()
       setProductos(productos)
+      setIsLoadingProducts(false)
     } catch (error) {
       toast.error('Error de carga')
     } finally {
+      setIsLoadingCategories(false)
+      setIsLoadingProducts(false)
       setIsLoading(false)
     }
   }
@@ -53,7 +62,8 @@ export default function Index() {
         image={image}
       />
       <Historia />
-      <Catalogo categories={categorias} productos={productos} />
+      <h1 className='font-extrabold text-3xl text-center mb-6'>Productos Principales</h1>
+      <Catalogo categories={categorias} productos={productos} isLoadingCategories={isLoadingCategories} isLoadingProducts={isLoadingProducts}/>
       <Reservaciones logged={!!user} />
       <Opiniones />
       <Toaster richColors theme="dark" />

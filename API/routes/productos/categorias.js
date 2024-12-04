@@ -45,8 +45,8 @@ export const getCategoriesMainProducts = async (req, res) => {
 export const getAllCategories = async (req, res) => {
     try {
         const result = await pool.query(`
-            SELECT c.id_cat, c.descripcion
-            FROM categorias c;
+            SELECT id_cat, descripcion AS categoria
+            FROM categorias;
         `);
         if (result.rows.length === 0) {
             return res.status(404).json({ message: "No hay categorias para mostrar" });

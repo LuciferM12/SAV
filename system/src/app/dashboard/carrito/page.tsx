@@ -19,7 +19,7 @@ const Carrito = () => {
   }, [carrito])
 
   return (
-    <div className='p-24 lg:px-6 h-5/6'>
+    <div className='p-24 lg:px-6'>
       <h1 className='font-extrabold text-3xl text-center mb-6'>Carrito</h1>
       <div className='w-full flex justify-between items-center md:flex-col gap-4'>
         <div className='dark:bg-zinc-900 shadow-lg rounded-xl overflow-hidden w-[70%] md:w-[90%]'>
