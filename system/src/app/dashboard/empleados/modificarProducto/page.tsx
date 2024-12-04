@@ -7,7 +7,14 @@ import { Toaster, toast } from 'sonner'
 import { getCategories, createProduct } from '@/app/dashboard/empleados/altaProducto/actionsProduct'
 import { Button } from "@/components/ui/button"
 import FormRender from '@/components/formRender/FormRender'
+import CustomImageInput from '@/components/inputs/InputFile'
 import { InputProps } from '@/components/inputs/types'
+
+interface ImageFiles {
+    imagen: File | null;
+}
+
+
 
 export default function AltaProducto() {
     const [categories, setCategories] = useState([])
@@ -20,6 +27,10 @@ export default function AltaProducto() {
         image: null as File | null,
     })
     const router = useRouter()
+
+    const [imageFiles, setImageFiles] = useState<ImageFiles>({
+        imagen: null
+    })
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -127,6 +138,10 @@ export default function AltaProducto() {
         },
     ]
 
+    const handleImageChange = (file: File | null, imageType: keyof ImageFiles) => {
+        setImageFiles(prev => ({ ...prev, [imageType]: file }));
+    }
+
     return (
         <main className="min-h-screen bg-black flex items-center justify-center py-20 px-4">
             <div className="w-full max-w-2xl flex flex-col items-center gap-12 text-white">
@@ -140,6 +155,7 @@ export default function AltaProducto() {
                 <h1 className="text-3xl font-bold">Nuevo Producto</h1>
                 <form onSubmit={handleSubmit} className="w-full space-y-6">
                     <FormRender inputs={inputs} onChange={handleChange} />
+                    <CustomImageInput onChange={(file) => handleImageChange(file, 'imagen')} label='imagen' name='imagen' />
                     <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white" disabled={isLoading}>
                         {isLoading ? 'Enviando...' : 'Registrar Producto'}
                     </Button>
