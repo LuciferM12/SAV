@@ -29,7 +29,7 @@ export const updateProfile = async (formData: FormData) => {
     });
 
     // Add image files to the FormData
-    const imageFields = ['imagen', 'banner', 'nosotrosimg', 'reservasimg'];
+    const imageFields = ['logo', 'banner', 'nosotrosimg', 'reservasimg'];
     imageFields.forEach(field => {
         const file = formData.get(field) as File;
         if (file && file.size > 0) {

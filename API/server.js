@@ -89,7 +89,7 @@ app.post('/upload-images', upload.fields([
     try {
         // Obtener una conexión del pool
         client = await pool.connect();
-
+        const { nombre, descripcion, tipo, nosotros, telefono, ubicacion, reservastext } = req.body;
         // Iniciar la transacción
         await client.query('BEGIN');
 
@@ -113,14 +113,16 @@ app.post('/upload-images', upload.fields([
         // Actualizar la tabla `negocio` con los IDs de las imágenes
         const updateQuery = `
         UPDATE negocio 
-        SET logo = $1, imagenp = $2, nosotrosimg = $3, reservasimg = $4
-        WHERE id_negocio = $5
+        SET logo = $1, imagenp = $2, nosotrosimg = $3, reservasimg = $4, 
+        tipo = $5, descripcion = $6, nosotros = $7, telefono = $8, ubicacion = $9, reservastext = $10
+        WHERE id_negocio = $11
       `;
         const updateValues = [
             insertedImages.logo || null,
             insertedImages.banner || null,
             insertedImages.nosotrosimg || null,
             insertedImages.reservasimg || null,
+            tipo, descripcion, nosotros, telefono, ubicacion, reservastext,
             1  // Ajustar si hay más de un negocio.
         ];
         await client.query(updateQuery, updateValues);

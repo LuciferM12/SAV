@@ -1,25 +1,29 @@
 'use client'
 import React from 'react'
-import { InputProps } from '../inputs/types'
+import { InputProps, TextAreaProps } from '../inputs/types'
 import Input from '../inputs/Input'
 import InputPassword from '../inputs/InputPassword'
+import TextArea from '../inputs/TextArea'
 
 export interface FormRenderProps {
-    inputs: InputProps[]
-    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
+    inputs: (InputProps | TextAreaProps)[]
+    onChange?: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
 }
 
 const FormRender = ({ inputs, onChange }: FormRenderProps) => {
     return (
         <>
-            {
-                inputs.map((input, index) => (
-                    input.type === 'text' || input.type === 'number' || input.type === 'tel' ?
-                        <Input {...input} onChange={onChange} key={index} /> :
-                        input.type === 'password' &&
-                        <InputPassword {...input} onChange={onChange} key={index} />
-                ))
-            }
+            {inputs.map((input, index) => {
+                if ('type' in input) {
+                    if (input.type === 'password') {
+                        return <InputPassword {...input} onChange={onChange} key={index} />
+                    } else {
+                        return <Input {...input} onChange={onChange} key={index} />
+                    }
+                } else {
+                    return <TextArea {...input} onChange={onChange} key={index} />
+                }
+            })}
         </>
     )
 }
