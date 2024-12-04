@@ -13,7 +13,7 @@ import decode from './routes/sesiones/decode.js'
 import protectedRoute from './routes/sesiones/protected.js'
 import { getHours } from './routes/reservacion/horas.js'
 import { createReservation, deleteReservation, getReservationForUser } from './routes/reservacion/reservacion.js'
-import { getBanner, getInformation, getLogo, getNosotros, getReserva  } from './routes/negocio/informacion.js'
+import { getBanner, getInformation, getLogo, getNosotros, getReserva } from './routes/negocio/informacion.js'
 
 const app = express()
 const upload = multer({ storage: multer.memoryStorage() })
@@ -75,6 +75,73 @@ app.get("/img/banner", getBanner)
 app.get("/img/reserva", getReserva)
 app.get("/img/nosotros", getNosotros)
 app.get('/logo', getLogo);
+
+
+/*** Prueba ***/
+app.post('/upload-images', upload.fields([
+    { name: 'logo', maxCount: 1 },
+    { name: 'banner', maxCount: 1 },
+    { name: 'nosotrosimg', maxCount: 1 },
+    { name: 'reservasimg', maxCount: 1 }
+]), async (req, res) => {
+    let client;
+
+    try {
+        // Obtener una conexión del pool
+        client = await pool.connect();
+
+        // Iniciar la transacción
+        await client.query('BEGIN');
+
+        const imageTypes = ['logo', 'banner', 'nosotrosimg', 'reservasimg'];
+        const insertedImages = {};
+
+        for (const type of imageTypes) {
+            if (req.files[type] && req.files[type][0]) {
+                const { buffer, mimetype } = req.files[type][0];
+
+                // Insertar la imagen en la tabla `imagenes`
+                const query = 'INSERT INTO imagenes (data, mimetype) VALUES ($1, $2) RETURNING id';
+                const values = [buffer, mimetype];
+                const result = await client.query(query, values);
+
+                // Guardar el ID de la imagen insertada
+                insertedImages[type] = result.rows[0].id;
+            }
+        }
+
+        // Actualizar la tabla `negocio` con los IDs de las imágenes
+        const updateQuery = `
+        UPDATE negocio 
+        SET logo = $1, imagenp = $2, nosotrosimg = $3, reservasimg = $4
+        WHERE id_negocio = $5
+      `;
+        const updateValues = [
+            insertedImages.logo || null,
+            insertedImages.banner || null,
+            insertedImages.nosotrosimg || null,
+            insertedImages.reservasimg || null,
+            1  // Ajustar si hay más de un negocio.
+        ];
+        await client.query(updateQuery, updateValues);
+
+        // Confirmar la transacción
+        await client.query('COMMIT');
+
+        res.json({ message: 'Images uploaded successfully', insertedImages });
+    } catch (error) {
+        // Revertir la transacción en caso de error
+        if (client) await client.query('ROLLBACK');
+        console.error(error);
+        res.status(500).json({ message: 'Error uploading images' });
+    } finally {
+        // Liberar la conexión al pool
+        if (client) client.release();
+    }
+});
+
+
+
 
 
 app.post('/upload', upload.single('image'), async (req, res) => {

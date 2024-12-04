@@ -2,7 +2,7 @@ import { pool } from '../../db.js'
 
 export const getInformation = async (req, res) => {
     try {
-        let query = `SELECT tipo, descripcion, nosotros, reservastext, nombre FROM negocio`
+        let query = `SELECT tipo, descripcion, ubicacion, telefono, nosotros, reservastext, nombre FROM negocio`
         let result = await pool.query(query)
 
         if (result.rows.length === 0) {
