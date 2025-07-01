@@ -9,8 +9,5 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,css,scss,md,json}": "prettier --write"
-  },
-  "dependencies": {
-    "react-icons": "^5.5.0"
   }
 }
